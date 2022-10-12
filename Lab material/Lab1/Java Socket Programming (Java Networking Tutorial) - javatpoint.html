@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://www.javatpoint.com/socket-programming -->
+<html lang="en" class="gr__javatpoint_com"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>Java Socket Programming  (Java Networking Tutorial) - javatpoint</title><link rel="SHORTCUT ICON" href="https://static.javatpoint.com/images/favicon2.png">
+<link rel="stylesheet" type="text/css" href="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/link.css">
+<link rel="dns-prefetch" href="https://clients1.google.com/"><link rel="dns-prefetch" href="https://static.javatpoint.com/"><link rel="dns-prefetch" href="https://googleads.g.doubleclick.net/"><link rel="dns-prefetch" href="https://www.google.com/"><link rel="dns-prefetch" href="https://feedify.net/"><meta name="theme-color" content="#4CAF50"><meta property="og:title" content="Java Socket Programming  (Java Networking Tutorial) - javatpoint"><meta property="og:description" content="Java socket programming. A socket is an endpoint between two way communication.example of java socket programming. ">
+<meta name="keywords" content="socket, programming, example, java, networking"><meta name="description" content="Java socket programming. A socket is an endpoint between two way communication.example of java socket programming. "><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="canonical" href="https://www.javatpoint.com/socket-programming">
+<meta property="og:locale" content="en_US"><meta property="og:type" content="article"><meta name="twitter:title" property="og:title" content="Java Socket Programming  (Java Networking Tutorial) - javatpoint"><meta name="twitter:description" property="og:description" content="Java socket programming. A socket is an endpoint between two way communication.example of java socket programming. "><meta property="og:url" content="https://www.javatpoint.com/socket-programming"><meta property="og:site_name" content="www.javatpoint.com"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@pagejavatpoint"><meta name="twitter:domain" content="www.javatpoint.com"><meta name="twitter:creator" content="@pagejavatpoint">
+<script async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/async-ads.js.download"></script><script async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/async-ads.js.download"></script><script src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/osd.js.download"></script><script type="text/javascript" async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/ga.js.download"></script><script type="text/javascript" async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(8).txt"></script><script type="text/javascript" async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(8).txt"></script><script id="feedify_webscript">
+var feedify = feedify || {};
+window.feedify_options={fedify_url:"https://feedify.net/"};
+(function (window, document){
+	function addScript( script_url ){
+		var s = document.createElement('script');
+		s.type = 'text/javascript';
+		s.src = script_url;
+		document.getElementsByTagName('head')[0].appendChild(s);
+	}
+	addScript('https://tpcf.feedify.net/uploads/settings/2e588c15fa58f6d438b0255693eb0ea3.js?ts='+Math.random());
+	addScript('https://cdn.feedify.net/getjs/feedbackembad-min-2.0.js');
+})(window, document);
+</script><script type="text/javascript" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/2e588c15fa58f6d438b0255693eb0ea3.js.download"></script><script type="text/javascript" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/feedbackembad-min-2.0.js.download"></script> 
+
+<link href="https://www.javatpoint.com/manifest.json" rel="manifest">
+<script data-cfasync="false" type="text/javascript">(function(w, d) { var s = d.createElement('script'); s.src = '//delivery.adrecover.com/37784/adRecover.js?ts=1543562646174'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script><script src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/adRecover.js.download" type="text/javascript" async=""></script>
+<script data-cfasync="false" type="text/javascript">(function(w, d) { var s = d.createElement('script'); s.src = '//cdn.adpushup.com/37780/adpushup.js'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script><script src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/adpushup.js.download" type="text/javascript" async=""></script>
+<style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><script src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/cse_element__en.js.download" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/default+en.css"><link type="text/css" rel="stylesheet" href="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/default.css"><script src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/cse_element__en.js.download" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/default+en.css"><link type="text/css" rel="stylesheet" href="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/default.css"><link rel="preload" href="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(9).txt" as="script"><script type="text/javascript" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(9).txt"></script><link rel="preload" href="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(10).txt" as="script"><script type="text/javascript" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(10).txt"></script><link rel="preload" href="https://pagead2.googlesyndication.com/pagead/js/r20190819/r20190131/show_ads_impl.js" as="script"><script type="text/javascript" async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/jquery.min.js.download"></script><style type="text/css">.gsc-control-cse{font-family:arial, sans-serif}.gsc-control-cse .gsc-table-result{font-family:arial, sans-serif}.gsc-refinementsGradient{background:linear-gradient(to left,rgba(255,255,255,1),rgba(255,255,255,0))}.gsc-control-cse{border-color:#ECE4E4;background-color:#EFEBEB}input.gsc-input,.gsc-input-box,.gsc-input-box-hover,.gsc-input-box-focus{border-color:#D9D9D9}.gsc-search-button-v2,.gsc-search-button-v2:hover,.gsc-search-button-v2:focus{border-color:#4CAF50;background-color:#4CAF50;background-image:none;filter:none}.gsc-search-button-v2 svg{fill:#FFFFFF}.gsc-tabHeader.gsc-tabhActive,.gsc-refinementHeader.gsc-refinementhActive{color:#CCCCCC;border-color:#CCCCCC;background-color:#FFFFFF}.gsc-tabHeader.gsc-tabhInactive,.gsc-refinementHeader.gsc-refinementhInactive{color:#CCCCCC;border-color:#CCCCCC;background-color:#FFFFFF}.gsc-webResult.gsc-result,.gsc-results .gsc-imageResult{border-color:#FFFFFF;background-color:#FFFFFF}.gsc-webResult.gsc-result:hover,.gsc-imageResult:hover{border-color:#FFFFFF;background-color:#FFFFFF}.gs-webResult.gs-result a.gs-title:link,.gs-webResult.gs-result a.gs-title:link b,.gs-imageResult a.gs-title:link,.gs-imageResult a.gs-title:link b{color:#783F04}.gs-webResult.gs-result a.gs-title:visited,.gs-webResult.gs-result a.gs-title:visited b,.gs-imageResult a.gs-title:visited,.gs-imageResult a.gs-title:visited b{color:#783F04}.gs-webResult.gs-result a.gs-title:hover,.gs-webResult.gs-result a.gs-title:hover b,.gs-imageResult a.gs-title:hover,.gs-imageResult a.gs-title:hover b{color:#BF9000}.gs-webResult.gs-result a.gs-title:active,.gs-webResult.gs-result a.gs-title:active b,.gs-imageResult a.gs-title:active,.gs-imageResult a.gs-title:active b{color:#BF9000}.gsc-cursor-page{color:#783F04}a.gsc-trailing-more-results:link{color:#783F04}.gs-webResult .gs-snippet,.gs-imageResult .gs-snippet,.gs-fileFormatType{color:#333333}.gs-webResult div.gs-visibleUrl,.gs-imageResult div.gs-visibleUrl{color:#009933}.gs-webResult div.gs-visibleUrl-short{color:#009933}.gs-webResult div.gs-visibleUrl-short{display:none}.gs-webResult div.gs-visibleUrl-long{display:block}.gs-promotion div.gs-visibleUrl-short{display:none}.gs-promotion div.gs-visibleUrl-long{display:block}.gsc-cursor-box{border-color:#FFFFFF}.gsc-results .gsc-cursor-box .gsc-cursor-page{border-color:#CCCCCC;background-color:#FFFFFF;color:#CCCCCC}.gsc-results .gsc-cursor-box .gsc-cursor-current-page{border-color:#CCCCCC;background-color:#FFFFFF;color:#CCCCCC}.gsc-webResult.gsc-result.gsc-promotion{border-color:#F6F6F6;background-color:#F6F6F6}.gsc-completion-title{color:#783F04}.gsc-completion-snippet{color:#333333}.gs-promotion a.gs-title:link,.gs-promotion a.gs-title:link *,.gs-promotion .gs-snippet a:link{color:#1155CC}.gs-promotion a.gs-title:visited,.gs-promotion a.gs-title:visited *,.gs-promotion .gs-snippet a:visited{color:#1155CC}.gs-promotion a.gs-title:hover,.gs-promotion a.gs-title:hover *,.gs-promotion .gs-snippet a:hover{color:#1155CC}.gs-promotion a.gs-title:active,.gs-promotion a.gs-title:active *,.gs-promotion .gs-snippet a:active{color:#1155CC}.gs-promotion .gs-snippet,.gs-promotion .gs-title .gs-promotion-title-right,.gs-promotion .gs-title .gs-promotion-title-right *{color:#333333}.gs-promotion .gs-visibleUrl,.gs-promotion .gs-visibleUrl-short{color:#009933}.gcsc-find-more-on-google{color:#783F04}.gcsc-find-more-on-google-magnifier{fill:#783F04}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-webkit-user-select:none;white-space:nowrap}.gsst_e{vertical-align:middle;opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em;-webkit-appearance:button}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gssb_a{padding:0 9px}.gsib_a{padding:5px 9px 4px 9px}.gscb_a{line-height:27px}.gssb_e{border:0}.gssb_l{margin:5px 0}input.gsc-input::-webkit-input-placeholder{font-size:14px}input.gsc-input:-moz-placeholder{font-size:14px}input.gsc-input::-moz-placeholder{font-size:14px}input.gsc-input:-ms-input-placeholder{font-size:14px}input.gsc-input:focus::-webkit-input-placeholder{color:transparent}input.gsc-input:focus:-moz-placeholder{color:transparent}input.gsc-input:focus::-moz-placeholder{color:transparent}input.gsc-input:focus:-ms-input-placeholder{color:transparent}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-webkit-user-select:none;white-space:nowrap}.gsst_e{vertical-align:middle;opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em;-webkit-appearance:button}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gssb_a{padding:0 9px}.gsib_a{padding:5px 9px 4px 9px}.gscb_a{line-height:27px}.gssb_e{border:0}.gssb_l{margin:5px 0}input.gsc-input::-webkit-input-placeholder{font-size:14px}input.gsc-input:-moz-placeholder{font-size:14px}input.gsc-input::-moz-placeholder{font-size:14px}input.gsc-input:-ms-input-placeholder{font-size:14px}input.gsc-input:focus::-webkit-input-placeholder{color:transparent}input.gsc-input:focus:-moz-placeholder{color:transparent}input.gsc-input:focus::-moz-placeholder{color:transparent}input.gsc-input:focus:-ms-input-placeholder{color:transparent}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style><style type="text/css">.gsc-control-cse{font-family:arial, sans-serif}.gsc-control-cse .gsc-table-result{font-family:arial, sans-serif}.gsc-refinementsGradient{background:linear-gradient(to left,rgba(255,255,255,1),rgba(255,255,255,0))}.gsc-control-cse{border-color:#ECE4E4;background-color:#EFEBEB}input.gsc-input,.gsc-input-box,.gsc-input-box-hover,.gsc-input-box-focus{border-color:#D9D9D9}.gsc-search-button-v2,.gsc-search-button-v2:hover,.gsc-search-button-v2:focus{border-color:#4CAF50;background-color:#4CAF50;background-image:none;filter:none}.gsc-search-button-v2 svg{fill:#FFFFFF}.gsc-tabHeader.gsc-tabhActive,.gsc-refinementHeader.gsc-refinementhActive{color:#CCCCCC;border-color:#CCCCCC;background-color:#FFFFFF}.gsc-tabHeader.gsc-tabhInactive,.gsc-refinementHeader.gsc-refinementhInactive{color:#CCCCCC;border-color:#CCCCCC;background-color:#FFFFFF}.gsc-webResult.gsc-result,.gsc-results .gsc-imageResult{border-color:#FFFFFF;background-color:#FFFFFF}.gsc-webResult.gsc-result:hover,.gsc-imageResult:hover{border-color:#FFFFFF;background-color:#FFFFFF}.gs-webResult.gs-result a.gs-title:link,.gs-webResult.gs-result a.gs-title:link b,.gs-imageResult a.gs-title:link,.gs-imageResult a.gs-title:link b{color:#783F04}.gs-webResult.gs-result a.gs-title:visited,.gs-webResult.gs-result a.gs-title:visited b,.gs-imageResult a.gs-title:visited,.gs-imageResult a.gs-title:visited b{color:#783F04}.gs-webResult.gs-result a.gs-title:hover,.gs-webResult.gs-result a.gs-title:hover b,.gs-imageResult a.gs-title:hover,.gs-imageResult a.gs-title:hover b{color:#BF9000}.gs-webResult.gs-result a.gs-title:active,.gs-webResult.gs-result a.gs-title:active b,.gs-imageResult a.gs-title:active,.gs-imageResult a.gs-title:active b{color:#BF9000}.gsc-cursor-page{color:#783F04}a.gsc-trailing-more-results:link{color:#783F04}.gs-webResult .gs-snippet,.gs-imageResult .gs-snippet,.gs-fileFormatType{color:#333333}.gs-webResult div.gs-visibleUrl,.gs-imageResult div.gs-visibleUrl{color:#009933}.gs-webResult div.gs-visibleUrl-short{color:#009933}.gs-webResult div.gs-visibleUrl-short{display:none}.gs-webResult div.gs-visibleUrl-long{display:block}.gs-promotion div.gs-visibleUrl-short{display:none}.gs-promotion div.gs-visibleUrl-long{display:block}.gsc-cursor-box{border-color:#FFFFFF}.gsc-results .gsc-cursor-box .gsc-cursor-page{border-color:#CCCCCC;background-color:#FFFFFF;color:#CCCCCC}.gsc-results .gsc-cursor-box .gsc-cursor-current-page{border-color:#CCCCCC;background-color:#FFFFFF;color:#CCCCCC}.gsc-webResult.gsc-result.gsc-promotion{border-color:#F6F6F6;background-color:#F6F6F6}.gsc-completion-title{color:#783F04}.gsc-completion-snippet{color:#333333}.gs-promotion a.gs-title:link,.gs-promotion a.gs-title:link *,.gs-promotion .gs-snippet a:link{color:#1155CC}.gs-promotion a.gs-title:visited,.gs-promotion a.gs-title:visited *,.gs-promotion .gs-snippet a:visited{color:#1155CC}.gs-promotion a.gs-title:hover,.gs-promotion a.gs-title:hover *,.gs-promotion .gs-snippet a:hover{color:#1155CC}.gs-promotion a.gs-title:active,.gs-promotion a.gs-title:active *,.gs-promotion .gs-snippet a:active{color:#1155CC}.gs-promotion .gs-snippet,.gs-promotion .gs-title .gs-promotion-title-right,.gs-promotion .gs-title .gs-promotion-title-right *{color:#333333}.gs-promotion .gs-visibleUrl,.gs-promotion .gs-visibleUrl-short{color:#009933}.gcsc-find-more-on-google{color:#783F04}.gcsc-find-more-on-google-magnifier{fill:#783F04}</style><script async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(2).txt"></script><script>(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-8655001720710332",enable_page_level_ads: true});</script><script type="text/javascript">(function($){
+ $('.onlycontentad').remove();
+ 
+ })(adRecover.ap.$)</script><script type="text/javascript">(function($){
+ var el = $('div[data-section="dcc4bc285432749dd816af8a2b9733e9"]');
+    var fixedOffsetFromTop = 50;
+    var initslOffsetFromTop = el.offset().top;
+    var footerOffset = $('#footer').offset().top;
+    window.addEventListener('scroll', function() {
+        if ($(window).scrollTop() + fixedOffsetFromTop>= initslOffsetFromTop) {
+            el[0].style.position = 'fixed';
+            var adBootomOffset = $(window).scrollTop() + fixedOffsetFromTop + el.height();
+            if(adBootomOffset > footerOffset){
+                el[0].style.top = (footerOffset-adBootomOffset)+'px';
+            }else{
+                el[0].style.top = fixedOffsetFromTop+'px';
+            }
+        } else {
+            el[0].style.position = 'relative';
+        }
+    }); 
+ 
+ })(adRecover.ap.$)</script></head> 
+<body onload="highlightlink()" data-gr-c-s-loaded="true" cz-shortcut-listen="true"> 
+
+<button onclick="topFunction()" id="myBtn" title="Go to top" style="display: block;">&#8679;</button>
+<div id="page" style="margin:-8px;background-color:#f5f5f4;"><div id="container"> <div class="header"><table style="width:100%;margin-bottom:5px">
+    <tbody><tr>
+        <td>
+            <div style="clear:both;float:left;width:230px;margin-top:15px;margin-left:20px">
+                <a href="https://www.javatpoint.com/"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/jtp_logo.png" alt="Javatpoint Logo"></a>
+            </div>
+            <div style="float:left;width:60%;">
+<script>
+  (function() {
+    var cx = '005383125436438536544:y1edweedxwi';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="___gcse_0"><div class="gsc-control-cse gsc-control-cse-en"><div class="gsc-control-wrapper-cse" dir="ltr"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8"><table cellspacing="0" cellpadding="0" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box" id="gsc-iw-id1"><table cellspacing="0" cellpadding="0" id="gs_id50" class="gstl_50 gsc-input" style="width: 100%; padding: 0px;"><tbody><tr><td id="gs_tti50" class="gsib_a"><input autocomplete="off" type="text" size="10" class="gsc-input" name="search" title="search" id="gsc-i-id1" placeholder="Custom Search" style="width: 100%; padding: 0px; border: none; margin: 0px; height: auto; background: url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) left center no-repeat rgb(255, 255, 255); text-indent: 48px; outline: none;" dir="ltr" spellcheck="false"></td><td class="gsib_b"><div class="gsst_b" id="gs_st50" dir="ltr"><a class="gsst_a" href="javascript:void(0)" style="display: none;" title="Clear search box" role="button"><span class="gscb_a" id="gs_cb50" aria-hidden="true">×</span></a></div></td></tr></tbody></table></div></td><td class="gsc-search-button"><button class="gsc-search-button gsc-search-button-v2"><svg width="13" height="13" viewBox="0 0 13 13"><title>search</title><path d="m4.8495 7.8226c0.82666 0 1.5262-0.29146 2.0985-0.87438 0.57232-0.58292 0.86378-1.2877 0.87438-2.1144 0.010599-0.82666-0.28086-1.5262-0.87438-2.0985-0.59352-0.57232-1.293-0.86378-2.0985-0.87438-0.8055-0.010599-1.5103 0.28086-2.1144 0.87438-0.60414 0.59352-0.8956 1.293-0.87438 2.0985 0.021197 0.8055 0.31266 1.5103 0.87438 2.1144 0.56172 0.60414 1.2665 0.8956 2.1144 0.87438zm4.4695 0.2115 3.681 3.6819-1.259 1.284-3.6817-3.7 0.0019784-0.69479-0.090043-0.098846c-0.87973 0.76087-1.92 1.1413-3.1207 1.1413-1.3553 0-2.5025-0.46363-3.4417-1.3909s-1.4088-2.0686-1.4088-3.4239c0-1.3553 0.4696-2.4966 1.4088-3.4239 0.9392-0.92727 2.0864-1.3969 3.4417-1.4088 1.3553-0.011889 2.4906 0.45771 3.406 1.4088 0.9154 0.95107 1.379 2.0924 1.3909 3.4239 0 1.2126-0.38043 2.2588-1.1413 3.1385l0.098834 0.090049z"></path></svg></button></td><td class="gsc-clear-button"><div class="gsc-clear-button" title="clear results">&nbsp;</div></td></tr></tbody></table></form><div class="gsc-results-wrapper-overlay"><div class="gsc-results-close-btn" tabindex="0"></div><div class="gsc-positioningWrapper"><div class="gsc-tabsAreaInvisible"><div class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Custom Search</div><span class="gs-spacer"> </span></div></div><div class="gsc-positioningWrapper"><div class="gsc-tabsAreaInvisible"></div></div><div class="gsc-above-wrapper-area-invisible"><table cellspacing="0" cellpadding="0" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td><td class="gsc-orderby-container"><div class="gsc-orderby-invisible"><div class="gsc-orderby-label gsc-inline-block">Sort by:</div><div class="gsc-option-menu-container gsc-inline-block"><div class="gsc-selected-option-container gsc-inline-block"><div class="gsc-selected-option">Relevance</div><div class="gsc-option-selector"></div></div><div class="gsc-option-menu-invisible"><div class="gsc-option-menu-item gsc-option-menu-item-highlighted"><div class="gsc-option">Relevance</div></div><div class="gsc-option-menu-item"><div class="gsc-option">Date</div></div></div></div></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><table cellspacing="0" cellpadding="0" class="gsc-resultsHeader"><tbody><tr><td class="gsc-twiddleRegionCell"><div class="gsc-twiddle"><div class="gsc-title">Web</div></div><div class="gsc-stats"></div><div class="gsc-results-selector gsc-all-results-active"><div class="gsc-result-selector gsc-one-result" title="show one result">&nbsp;</div><div class="gsc-result-selector gsc-more-results" title="show more results">&nbsp;</div><div class="gsc-result-selector gsc-all-results" title="show all results">&nbsp;</div></div></td><td class="gsc-configLabelCell"></td></tr></tbody></table><div><div class="gsc-expansionArea"></div></div></div></div></div></div><div class="gsc-modal-background-image" tabindex="0"></div></div></div></div>
+                
+            </div>
+            
+        </td>
+    </tr>
+        <!--<tr>
+        <td>
+            <div id="headerlink" style="padding:0px;margin:0px"><span style="margin-right:20px;width:45px"></span><span style="float:right;margin-right:5px;width:45%"> </span>
+                
+            </div>
+        </td>
+    </tr>-->
+
+</tbody></table> </div>
+<div class="headermobile">
+<div style="margin-top:10px;padding:0px;text-align:left;">
+<span style="float:left"><input type="image" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/menuhome64.png" alt="Go To Top" onclick="showmenu()"></span>
+<span style="float:left"><a href="https://www.javatpoint.com/"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/jtp_logo.png" alt="Javatpoint Logo"></a></span>
+
+</div>
+<div style="margin:0px;padding:0px;clear:both">
+<script>
+  (function() {
+    var cx = '005383125436438536544:y1edweedxwi';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="___gcse_1"><div class="gsc-control-cse gsc-control-cse-en"><div class="gsc-control-wrapper-cse" dir="ltr"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8"><table cellspacing="0" cellpadding="0" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box" id="gsc-iw-id2"><table cellspacing="0" cellpadding="0" id="gs_id51" class="gstl_51 gsc-input" style="width: 100%; padding: 0px;"><tbody><tr><td id="gs_tti51" class="gsib_a"><input autocomplete="off" type="text" size="10" class="gsc-input" name="search" title="search" id="gsc-i-id2" placeholder="Custom Search" style="width: 100%; padding: 0px; border: none; margin: 0px; height: auto; background: url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) left center no-repeat rgb(255, 255, 255); text-indent: 48px; outline: none;" dir="ltr" spellcheck="false"></td><td class="gsib_b"><div class="gsst_b" id="gs_st51" dir="ltr"><a class="gsst_a" href="javascript:void(0)" style="display: none;" title="Clear search box" role="button"><span class="gscb_a" id="gs_cb51" aria-hidden="true">×</span></a></div></td></tr></tbody></table></div></td><td class="gsc-search-button"><button class="gsc-search-button gsc-search-button-v2"><svg width="13" height="13" viewBox="0 0 13 13"><title>search</title><path d="m4.8495 7.8226c0.82666 0 1.5262-0.29146 2.0985-0.87438 0.57232-0.58292 0.86378-1.2877 0.87438-2.1144 0.010599-0.82666-0.28086-1.5262-0.87438-2.0985-0.59352-0.57232-1.293-0.86378-2.0985-0.87438-0.8055-0.010599-1.5103 0.28086-2.1144 0.87438-0.60414 0.59352-0.8956 1.293-0.87438 2.0985 0.021197 0.8055 0.31266 1.5103 0.87438 2.1144 0.56172 0.60414 1.2665 0.8956 2.1144 0.87438zm4.4695 0.2115 3.681 3.6819-1.259 1.284-3.6817-3.7 0.0019784-0.69479-0.090043-0.098846c-0.87973 0.76087-1.92 1.1413-3.1207 1.1413-1.3553 0-2.5025-0.46363-3.4417-1.3909s-1.4088-2.0686-1.4088-3.4239c0-1.3553 0.4696-2.4966 1.4088-3.4239 0.9392-0.92727 2.0864-1.3969 3.4417-1.4088 1.3553-0.011889 2.4906 0.45771 3.406 1.4088 0.9154 0.95107 1.379 2.0924 1.3909 3.4239 0 1.2126-0.38043 2.2588-1.1413 3.1385l0.098834 0.090049z"></path></svg></button></td><td class="gsc-clear-button"><div class="gsc-clear-button" title="clear results">&nbsp;</div></td></tr></tbody></table></form><div class="gsc-results-wrapper-overlay"><div class="gsc-results-close-btn" tabindex="0"></div><div class="gsc-positioningWrapper"><div class="gsc-tabsAreaInvisible"><div class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Custom Search</div><span class="gs-spacer"> </span></div></div><div class="gsc-positioningWrapper"><div class="gsc-tabsAreaInvisible"></div></div><div class="gsc-above-wrapper-area-invisible"><table cellspacing="0" cellpadding="0" class="gsc-above-wrapper-area-container"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td><td class="gsc-orderby-container"><div class="gsc-orderby-invisible"><div class="gsc-orderby-label gsc-inline-block">Sort by:</div><div class="gsc-option-menu-container gsc-inline-block"><div class="gsc-selected-option-container gsc-inline-block"><div class="gsc-selected-option">Relevance</div><div class="gsc-option-selector"></div></div><div class="gsc-option-menu-invisible"><div class="gsc-option-menu-item gsc-option-menu-item-highlighted"><div class="gsc-option">Relevance</div></div><div class="gsc-option-menu-item"><div class="gsc-option">Date</div></div></div></div></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><table cellspacing="0" cellpadding="0" class="gsc-resultsHeader"><tbody><tr><td class="gsc-twiddleRegionCell"><div class="gsc-twiddle"><div class="gsc-title">Web</div></div><div class="gsc-stats"></div><div class="gsc-results-selector gsc-all-results-active"><div class="gsc-result-selector gsc-one-result" title="show one result">&nbsp;</div><div class="gsc-result-selector gsc-more-results" title="show more results">&nbsp;</div><div class="gsc-result-selector gsc-all-results" title="show all results">&nbsp;</div></div></td><td class="gsc-configLabelCell"></td></tr></tbody></table><div><div class="gsc-expansionArea"></div></div></div></div></div></div><div class="gsc-modal-background-image" tabindex="0"></div></div></div></div>
+<!--<form class="navbar-search-m" method="get" action="https://www.google.com/search" target="_blank"> <input type="text" name="q" class="search-query span2-m" placeholder="Search on javatpoint..." title="Search on Javatpoint"/><input type="hidden" name="sitesearch" value="www.javatpoint.com"/></form>-->
+
+</div>
+</div>
+<div id="link" style="clear:both"> <div id="smoothmenu1" class="ddsmoothmenu">
+<ul>
+<li><a href="https://www.javatpoint.com/">Home</a></li>
+<li><a href="https://www.javatpoint.com/java-tutorial" class="selected">Java</a></li>
+<li><a href="https://www.javatpoint.com/c-programming-language-tutorial">C</a></li>
+<li><a href="https://www.javatpoint.com/cpp-tutorial">C++</a></li>
+<li><a href="https://www.javatpoint.com/c-sharp-tutorial">C#</a></li>
+<li><a href="https://www.javatpoint.com/servlet-tutorial">Servlet</a></li>
+<li><a href="https://www.javatpoint.com/jsp-tutorial">JSP</a></li>
+<li><a href="https://www.javatpoint.com/ejb-tutorial">EJB</a></li>
+<li><a href="https://www.javatpoint.com/struts-2-tutorial">Struts2</a></li>
+<li><a href="https://www.javatpoint.com/java-mail-api-tutorial">Mail</a></li>
+<li><a href="https://www.javatpoint.com/hibernate-tutorial">Hibernate</a></li>
+<li><a href="https://www.javatpoint.com/spring-tutorial">Spring</a></li>
+<li><a href="https://www.javatpoint.com/android-tutorial">Android</a></li>
+<li><a href="https://www.javatpoint.com/design-patterns-in-java">Design P</a></li>
+<li><a href="https://www.javatpoint.com/examaccess">Quiz</a></li>
+<li><a href="https://www.javatpoint.com/free-java-projects">Projects</a></li>
+<li><a href="https://www.javatpoint.com/corejava-interview-questions">Interview Q</a>
+</li><li><a href="https://www.javatpoint.com/comment.jsp">Comment</a>
+</li><li><a href="https://www.javatpoint.com/forum">Forum</a>
+</li><li><a href="https://www.javatpoint.com/training">Training</a>
+</li>
+</ul>
+<br style="clear: left">
+</div>
+</div>
+<div class="mobilemenu" style="clear:both"> 
+<!-- Cm_300x250_Mob_14/9 -->
+<ins class="adPushupAds" data-adpcontrol="hqdgs" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSBDbV8zMDB4MjUwX01vYl8xNC85IC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7d2lkdGg6MzAwcHg7aGVpZ2h0OjI1MHB4IgogICAgIGRhdGEtYWQtY2xpZW50PSJjYS1wdWItNDY5OTg1ODU0OTAyMzM4MiIKICAgICBkYXRhLWFkLXNsb3Q9IjcwMTQyNzI1MTkiPjwvaW5zPgo8c2NyaXB0PgooYWRzYnlnb29nbGUgPSB3aW5kb3cuYWRzYnlnb29nbGUgfHwgW10pLnB1c2goe30pOwo8L3NjcmlwdD4=" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+</div>
+
+<div id="menu">
+<div class="leftmenu2">
+<a href="https://www.javatpoint.com/java-tutorial"><span>Basics of Java </span></a>
+<a href="https://www.javatpoint.com/java-oops-concepts"><span>OOPs Concepts</span></a>
+<a href="https://www.javatpoint.com/java-string"><span>Java String</span></a>
+<a href="https://www.javatpoint.com/java-regex"><span>Java Regex</span></a>
+<a href="https://www.javatpoint.com/exception-handling-in-java"><span>Exception Handling</span></a>
+<a href="https://www.javatpoint.com/java-inner-class"><span>Java Inner classes</span></a>
+<a href="https://www.javatpoint.com/multithreading-in-java"><span>Java Multithreading</span></a>
+<a href="https://www.javatpoint.com/java-io"><span>Java I/O</span></a>
+</div>
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Java Networking</span></h2>
+</div>
+
+<div class="leftmenu">
+<a href="https://www.javatpoint.com/java-networking" class="l1">Networking Concepts</a>
+<a href="https://www.javatpoint.com/socket-programming" class="l1" style="color: black;"><strong>Socket Programming</strong> <img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/open-12.png" alt="open link"></a>
+<a href="https://www.javatpoint.com/URL-class" class="l1">URL class</a>
+<a href="https://www.javatpoint.com/URLConnection-class" class="l1">URLConnection class</a>
+<a href="https://www.javatpoint.com/java-http-url-connection" class="l1">HttpURLConnection</a>
+<a href="https://www.javatpoint.com/InetAddress-class" class="l1">InetAddress class</a>
+<a href="https://www.javatpoint.com/DatagramSocket-and-DatagramPacket" class="l1">DatagramSocket class</a>
+<!--
+<a href="two-way-communication-in-java" class="l1">Two way communication</a>
+-->
+</div>
+
+<div class="leftmenu2">
+<a href="https://www.javatpoint.com/java-awt"><span>Java AWT</span></a>
+<a href="https://www.javatpoint.com/java-swing"><span>Java Swing</span></a>
+<a href="https://www.javatpoint.com/javafx-tutorial"><span>JavaFX</span></a>
+<a href="https://www.javatpoint.com/java-applet"><span>Java Applet</span></a>
+<a href="https://www.javatpoint.com/java-reflection"><span>Java Reflection</span></a>
+<a href="https://www.javatpoint.com/java-date"><span>Java Date</span></a>
+<a href="https://www.javatpoint.com/java-string-to-int"><span>Java Conversion</span></a>
+<a href="https://www.javatpoint.com/collections-in-java"><span>Java Collection</span></a>
+<a href="https://www.javatpoint.com/java-jdbc"><span>Java JDBC</span></a>
+<a href="https://www.javatpoint.com/New-features-in-java"><span>Java New Features</span></a>
+<a href="https://www.javatpoint.com/RMI"><span>RMI</span></a>
+<a href="https://www.javatpoint.com/internationalization-in-java"><span>Internationalization</span></a>
+<a href="https://www.javatpoint.com/corejava-interview-questions"><span>Interview Questions</span></a>
+</div>
+
+<img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/wh.JPG" alt="JavaTpoint">
+<br>
+<div id="leftad" style="margin-left:20px">
+<!-- javatpointleft -->
+<ins class="adPushupAds" data-adpcontrol="g8drp" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSBqYXZhdHBvaW50bGVmdCAtLT4KPGlucyBjbGFzcz0iYWRzYnlnb29nbGUiCiAgICAgc3R5bGU9ImRpc3BsYXk6aW5saW5lLWJsb2NrO3dpZHRoOjE2MHB4O2hlaWdodDo2MDBweCIKICAgICBkYXRhLWFkLWNsaWVudD0iY2EtcHViLTQ2OTk4NTg1NDkwMjMzODIiCiAgICAgZGF0YS1hZC1zbG90PSI0NDc2NDAxMjIyIj48L2lucz4KPHNjcmlwdD4KKGFkc2J5Z29vZ2xlID0gd2luZG93LmFkc2J5Z29vZ2xlIHx8IFtdKS5wdXNoKHt9KTsKPC9zY3JpcHQ+" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+
+
+</div>
+<div id="_adr_abp_iframe_4" data-section="dcc4bc285432749dd816af8a2b9733e9" class="_adr_abp_iframe" style="display: block; clear: both; width: 160px; height: 614px; margin: 0px auto; position: fixed; top: 50px;"><div style="font-family: Arial, Helvetica, sans-serif; font-size: 9px; text-transform: uppercase; color: rgb(128, 129, 143); background-color: rgba(255, 255, 255, 0.3); line-height: 10px; padding: 2px 4px; width: 98%; height: 8px;"><span style="float: left; font-size: 9px; text-decoration: none; color: rgb(160, 160, 160);">Advertisement</span></div><div id="ad-container-dcc4bc285432749dd816af8a2b9733e9" style="height: 600px; width: 100%; margin: 0px auto; text-align: center; display: none;"></div><iframe id="iframe-ad-container-dcc4bc285432749dd816af8a2b9733e9" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/recover.html" scrolling="no" style="width: 100%; height: 600px; margin: 0px; padding: 0px; border: none; display: block;"></iframe></div></div>
+<div class="onlycontent"><div id="_adr_abp_iframe_1" data-section="5d6c54e7fca6e36ecadad929a7f15d3a" class="_adr_abp_iframe" style="display: block; clear: both; width: 728px; height: 104px; margin: 10px auto 20px;"><div style="font-family: Arial, Helvetica, sans-serif; font-size: 9px; text-transform: uppercase; color: rgb(128, 129, 143); background-color: rgba(255, 255, 255, 0.3); line-height: 10px; padding: 2px 4px; width: 98%; height: 8px;"><span style="float: left; font-size: 9px; text-decoration: none; color: rgb(160, 160, 160);">Advertisement</span></div><div id="ad-container-5d6c54e7fca6e36ecadad929a7f15d3a" style="height: 90px; width: 100%; margin: 0px auto; text-align: center; display: none;"></div><iframe id="iframe-ad-container-5d6c54e7fca6e36ecadad929a7f15d3a" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/recover(1).html" scrolling="no" style="width: 100%; height: 90px; margin: 0px; padding: 0px; border: none; display: block;"></iframe></div>
+
+<div class="onlycontentinner">
+<div id="city">
+
+<table>
+<tbody><tr><td>
+
+<div id="bottomnextup">
+<a class="next" href="https://www.javatpoint.com/URL-class">next &#8594;</a>
+<a class="next" href="https://www.javatpoint.com/java-networking">&#8592; prev</a>
+</div>
+ 
+<h1 class="h1">Java Socket Programming</h1>
+<p>Java Socket programming is used for communication between the applications running on different JRE.</p>
+<p>Java Socket programming can be connection-oriented or connection-less.</p>
+<p>Socket and ServerSocket classes are used for connection-oriented socket programming and DatagramSocket and DatagramPacket classes are used for connection-less socket programming.</p>
+<p>The client in socket programming must know two information:</p>
+<ol>
+<li>IP Address of Server, and</li>
+<li>Port number.</li>
+</ol>
+<p>Here, we are going to make one-way client and server communication. In this application, client sends a message to the server, server reads the message and prints it. Here, two classes are being used: Socket and ServerSocket. The Socket class is used to communicate client and server. Through this class, we can read and write message. The ServerSocket class is used at server-side. The accept() method of ServerSocket class blocks the console until the client is connected. After the successful connection of client, it returns the instance of Socket at server-side.</p>
+<img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/socket-programming.png" alt="Socket Programming in Java">
+<hr>
+<h2 class="h2">Socket class</h2>
+<p>A socket is simply an endpoint for communications between the machines. The Socket class can be used to create a socket.</p>
+
+<h3 class="h3">Important methods</h3>
+<table class="alt">
+<tbody><tr><th>Method</th><th>Description</th></tr>
+<tr><td>1) public InputStream getInputStream()</td><td>returns the InputStream attached with this socket.</td></tr>
+<tr><td>2) public OutputStream getOutputStream()</td><td>returns the OutputStream attached with this socket.</td></tr>
+<tr><td>3) public synchronized void close()</td><td>closes this socket</td></tr>
+</tbody></table>
+
+
+<h2 class="h2">ServerSocket class</h2>
+<p>The ServerSocket class can be used to create a server socket. This object is used to establish communication with the clients.</p>
+
+<h3 class="h3">Important methods</h3>
+<table class="alt">
+<tbody><tr><th>Method</th><th>Description</th></tr>
+<tr><td>1) public Socket accept()</td><td>returns the socket and establish a connection between server and client.</td></tr>
+<tr><td>2) public synchronized void close()</td><td>closes the server socket.</td></tr>
+</tbody></table>
+
+<h2 class="h2">Example of Java Socket Programming</h2>
+<p><strong>Creating Server:</strong></p>
+<p>To create the server application, we need to create the instance of ServerSocket class. Here, we are using 6666 port number for the communication between the client and server. You may also choose any other port number. The accept() method waits for the client. If clients connects with the given port number, it returns an instance of Socket.</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>ServerSocket&nbsp;ss=</span><span class="keyword">new</span><span>&nbsp;ServerSocket(</span><span class="number">6666</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>Socket&nbsp;s=ss.accept();<span class="comment">//establishes&nbsp;connection&nbsp;and&nbsp;waits&nbsp;for&nbsp;the&nbsp;client&nbsp;</span><span>&nbsp;&nbsp;</span></span></li></ol></div><textarea name="code" class="java" style="display: none;">ServerSocket ss=new ServerSocket(6666);
+Socket s=ss.accept();//establishes connection and waits for the client 
+</textarea></div>
+
+<p><strong>Creating Client:</strong></p>
+<p>To create the client application, we need to create the instance of Socket class. Here, we need to pass the IP address or hostname of the Server and a port number. Here, we are using "localhost" because our server is running on same system.</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>Socket&nbsp;s=</span><span class="keyword">new</span><span>&nbsp;Socket(</span><span class="string">"localhost"</span><span>,</span><span class="number">6666</span><span>);&nbsp;&nbsp;</span></span></li></ol></div><textarea name="code" class="java" style="display: none;">Socket s=new Socket("localhost",6666);
+</textarea></div>
+
+<p>Let's see a simple of Java socket programming where client sends a text and server receives and prints it.</p>
+
+<p class="filename">File: MyServer.java</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">import</span><span>&nbsp;java.io.*;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;java.net.*;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;MyServer&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String[]&nbsp;args){&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">try</span><span>{&nbsp;&nbsp;</span></span></li><li class=""><span>ServerSocket&nbsp;ss=<span class="keyword">new</span><span>&nbsp;ServerSocket(</span><span class="number">6666</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>Socket&nbsp;s=ss.accept();<span class="comment">//establishes&nbsp;connection&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>DataInputStream&nbsp;dis=<span class="keyword">new</span><span>&nbsp;DataInputStream(s.getInputStream());&nbsp;&nbsp;</span></span></li><li class="alt"><span>String&nbsp;&nbsp;str=(String)dis.readUTF();&nbsp;&nbsp;</span></li><li class=""><span>System.out.println(<span class="string">"message=&nbsp;"</span><span>+str);&nbsp;&nbsp;</span></span></li><li class="alt"><span>ss.close();&nbsp;&nbsp;</span></li><li class=""><span>}<span class="keyword">catch</span><span>(Exception&nbsp;e){System.out.println(e);}&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">import java.io.*;
+import java.net.*;
+public class MyServer {
+public static void main(String[] args){
+try{
+ServerSocket ss=new ServerSocket(6666);
+Socket s=ss.accept();//establishes connection 
+DataInputStream dis=new DataInputStream(s.getInputStream());
+String	str=(String)dis.readUTF();
+System.out.println("message= "+str);
+ss.close();
+}catch(Exception e){System.out.println(e);}
+}
+}
+</textarea></div>
+
+<p class="filename">File: MyClient.java</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">import</span><span>&nbsp;java.io.*;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;java.net.*;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;MyClient&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String[]&nbsp;args)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">try</span><span>{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>Socket&nbsp;s=<span class="keyword">new</span><span>&nbsp;Socket(</span><span class="string">"localhost"</span><span>,</span><span class="number">6666</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>DataOutputStream&nbsp;dout=<span class="keyword">new</span><span>&nbsp;DataOutputStream(s.getOutputStream());&nbsp;&nbsp;</span></span></li><li class=""><span>dout.writeUTF(<span class="string">"Hello&nbsp;Server"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>dout.flush();&nbsp;&nbsp;</span></li><li class=""><span>dout.close();&nbsp;&nbsp;</span></li><li class="alt"><span>s.close();&nbsp;&nbsp;</span></li><li class=""><span>}<span class="keyword">catch</span><span>(Exception&nbsp;e){System.out.println(e);}&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">import java.io.*;
+import java.net.*;
+public class MyClient {
+public static void main(String[] args) {
+try{	
+Socket s=new Socket("localhost",6666);
+DataOutputStream dout=new DataOutputStream(s.getOutputStream());
+dout.writeUTF("Hello Server");
+dout.flush();
+dout.close();
+s.close();
+}catch(Exception e){System.out.println(e);}
+}
+}
+</textarea></div>
+<div id="download">
+<a href="https://www.javatpoint.com/src/networking/socket.zip">download this example</a>
+</div>
+
+<p>To execute this program open two command prompts and execute each program at each command prompt as displayed in the below figure.</p>
+<p>After running the client application, a message will be displayed on the server console.</p>
+<img alt="Java Networking Programming" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/networking.jpg">
+<hr>
+
+<h2 class="h2">Example of Java Socket Programming (Read-Write both side)</h2>
+<p>In this example, client will write first to the server then server will receive and print the text. Then server will write to the client and client will receive and print the text. The step goes on.</p>
+
+<p class="filename">File: MyServer.java</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">import</span><span>&nbsp;java.net.*;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;java.io.*;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">class</span><span>&nbsp;MyServer{&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String&nbsp;args[])</span><span class="keyword">throws</span><span>&nbsp;Exception{&nbsp;&nbsp;</span></span></li><li class="alt"><span>ServerSocket&nbsp;ss=<span class="keyword">new</span><span>&nbsp;ServerSocket(</span><span class="number">3333</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>Socket&nbsp;s=ss.accept();&nbsp;&nbsp;</span></li><li class="alt"><span>DataInputStream&nbsp;din=<span class="keyword">new</span><span>&nbsp;DataInputStream(s.getInputStream());&nbsp;&nbsp;</span></span></li><li class=""><span>DataOutputStream&nbsp;dout=<span class="keyword">new</span><span>&nbsp;DataOutputStream(s.getOutputStream());&nbsp;&nbsp;</span></span></li><li class="alt"><span>BufferedReader&nbsp;br=<span class="keyword">new</span><span>&nbsp;BufferedReader(</span><span class="keyword">new</span><span>&nbsp;InputStreamReader(System.in));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>String&nbsp;str=<span class="string">""</span><span>,str2=</span><span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">while</span><span>(!str.equals(</span><span class="string">"stop"</span><span>)){&nbsp;&nbsp;</span></span></li><li class="alt"><span>str=din.readUTF();&nbsp;&nbsp;</span></li><li class=""><span>System.out.println(<span class="string">"client&nbsp;says:&nbsp;"</span><span>+str);&nbsp;&nbsp;</span></span></li><li class="alt"><span>str2=br.readLine();&nbsp;&nbsp;</span></li><li class=""><span>dout.writeUTF(str2);&nbsp;&nbsp;</span></li><li class="alt"><span>dout.flush();&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>din.close();&nbsp;&nbsp;</span></li><li class=""><span>s.close();&nbsp;&nbsp;</span></li><li class="alt"><span>ss.close();&nbsp;&nbsp;</span></li><li class=""><span>}}&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">import java.net.*;
+import java.io.*;
+class MyServer{
+public static void main(String args[])throws Exception{
+ServerSocket ss=new ServerSocket(3333);
+Socket s=ss.accept();
+DataInputStream din=new DataInputStream(s.getInputStream());
+DataOutputStream dout=new DataOutputStream(s.getOutputStream());
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+String str="",str2="";
+while(!str.equals("stop")){
+str=din.readUTF();
+System.out.println("client says: "+str);
+str2=br.readLine();
+dout.writeUTF(str2);
+dout.flush();
+}
+din.close();
+s.close();
+ss.close();
+}}
+</textarea></div>
+
+<p class="filename">File: MyClient.java</p>
+<div class="codeblock"><div class="dp-highlighter"><div class="bar"><div class="tools"><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;"></a><a href="https://www.javatpoint.com/socket-programming#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;"></a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">import</span><span>&nbsp;java.net.*;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;java.io.*;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">class</span><span>&nbsp;MyClient{&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String&nbsp;args[])</span><span class="keyword">throws</span><span>&nbsp;Exception{&nbsp;&nbsp;</span></span></li><li class="alt"><span>Socket&nbsp;s=<span class="keyword">new</span><span>&nbsp;Socket(</span><span class="string">"localhost"</span><span>,</span><span class="number">3333</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>DataInputStream&nbsp;din=<span class="keyword">new</span><span>&nbsp;DataInputStream(s.getInputStream());&nbsp;&nbsp;</span></span></li><li class="alt"><span>DataOutputStream&nbsp;dout=<span class="keyword">new</span><span>&nbsp;DataOutputStream(s.getOutputStream());&nbsp;&nbsp;</span></span></li><li class=""><span>BufferedReader&nbsp;br=<span class="keyword">new</span><span>&nbsp;BufferedReader(</span><span class="keyword">new</span><span>&nbsp;InputStreamReader(System.in));&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>String&nbsp;str=<span class="string">""</span><span>,str2=</span><span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">while</span><span>(!str.equals(</span><span class="string">"stop"</span><span>)){&nbsp;&nbsp;</span></span></li><li class=""><span>str=br.readLine();&nbsp;&nbsp;</span></li><li class="alt"><span>dout.writeUTF(str);&nbsp;&nbsp;</span></li><li class=""><span>dout.flush();&nbsp;&nbsp;</span></li><li class="alt"><span>str2=din.readUTF();&nbsp;&nbsp;</span></li><li class=""><span>System.out.println(<span class="string">"Server&nbsp;says:&nbsp;"</span><span>+str2);&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>dout.close();&nbsp;&nbsp;</span></li><li class=""><span>s.close();&nbsp;&nbsp;</span></li><li class="alt"><span>}}&nbsp;&nbsp;</span></li></ol></div><textarea name="code" class="java" style="display: none;">import java.net.*;
+import java.io.*;
+class MyClient{
+public static void main(String args[])throws Exception{
+Socket s=new Socket("localhost",3333);
+DataInputStream din=new DataInputStream(s.getInputStream());
+DataOutputStream dout=new DataOutputStream(s.getOutputStream());
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+String str="",str2="";
+while(!str.equals("stop")){
+str=br.readLine();
+dout.writeUTF(str);
+dout.flush();
+str2=din.readUTF();
+System.out.println("Server says: "+str2);
+}
+
+dout.close();
+s.close();
+}}
+</textarea></div>
+<div class="nexttopicdiv">
+<span class="nexttopictext">Next Topic</span><span class="nexttopiclink"><a href="https://www.javatpoint.com/URL-class">URL class</a></span>
+</div>
+
+
+<!-- link -->
+<br><br>
+
+<div id="bottomnext">
+<a style="float:left" class="next" href="https://www.javatpoint.com/java-networking">&#8592; prev</a>
+<a style="float:right" class="next" href="https://www.javatpoint.com/URL-class">next &#8594;</a>
+</div>
+
+<div id="_adr_abp_iframe_2" data-section="2fb950cf16ac9243bc215a99674917cf" class="_adr_abp_iframe" style="display: block; clear: both; width: 336px; height: 294px; margin: 0px auto 20px;"><div style="font-family: Arial, Helvetica, sans-serif; font-size: 9px; text-transform: uppercase; color: rgb(128, 129, 143); background-color: rgba(255, 255, 255, 0.3); line-height: 10px; padding: 2px 4px; width: 98%; height: 8px;"><span style="float: left; font-size: 9px; text-decoration: none; color: rgb(160, 160, 160);">Advertisement</span></div><div id="ad-container-2fb950cf16ac9243bc215a99674917cf" style="height: 280px; width: 100%; margin: 0px auto; text-align: center; display: none;"></div><iframe id="iframe-ad-container-2fb950cf16ac9243bc215a99674917cf" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/recover(2).html" scrolling="no" style="width: 100%; height: 280px; margin: 0px; padding: 0px; border: none; display: block;"></iframe></div></td></tr>
+</tbody></table>
+</div>
+<!-- contribute start-->
+
+<!-- contribute end-->
+
+<script async="" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/f(2).txt"></script>
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 200px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4699858549023382" data-ad-slot="7776236568" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:987px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:987px;background-color:transparent;"><iframe width="987" height="200" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0px;width:987px;height:200px;" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/saved_resource(15).html"></iframe></ins></ins></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+<h2 class="h2">Please Share</h2>
+<a rel="nofollow" title="Facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https://www.javatpoint.com/socket-programming"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/facebook32.png" alt="facebook"></a>
+<a rel="nofollow" title="Twitter" target="_blank" href="https://twitter.com/share?url=https://www.javatpoint.com/socket-programming"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/twitter32.png" alt="twitter"></a>
+<a rel="nofollow" title="Google+" target="_blank" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=https://www.javatpoint.com/socket-programming"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/google-plus32.png" alt="google plus"></a>
+<a rel="nofollow" title="Pinterest" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=https://www.javatpoint.com/socket-programming"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/pinterest32.png" alt="pinterest"></a>
+<!--<a rel="nofollow" title="Tumblr" target="_blank" href="https://www.tumblr.com/share/link?url=https://www.javatpoint.com/socket-programming"><img src="https://www.javatpoint.com/images/tumblr32.png" alt="tumbler"/></a>-->
+
+<footer class="footer1">
+<h2>Join Javatpoint Test Series</h2> 
+    <div class="column4">
+        <a href="https://testseries.javatpoint.com/ecatalog/105/placement-papers">Placement Papers</a>
+        <a href="https://testseries.javatpoint.com/tests/112/tcs">TCS</a>
+        <a href="https://testseries.javatpoint.com/tests/107/hcl">HCL</a>
+        <a href="https://testseries.javatpoint.com/tests/108/infosys">Infosys</a>
+        <a href="https://testseries.javatpoint.com/tests/111/ibm">IBM</a>
+        <a href="https://testseries.javatpoint.com/tests/113/accenture">Accenture</a>
+        
+    </div>
+    <div class="column4">
+        <a href="https://testseries.javatpoint.com/tests/167/amcat">AMCAT</a>
+        <a href="https://testseries.javatpoint.com/tests/171/elitmus">eLitmas</a>
+        <a href="https://testseries.javatpoint.com/tests/334/java">Java</a>
+        <a href="https://testseries.javatpoint.com/tests/770/python">Python</a>
+        <a href="https://testseries.javatpoint.com/tests/330/c-language">C Programming</a>
+        <a href="https://testseries.javatpoint.com/tests/336/networking">Networking</a>
+        
+    </div>
+    <div class="column4">
+        <a href="https://testseries.javatpoint.com/ecatalog/59/bank-po-clerical">Bank PO/Clerk</a>
+        <a href="https://testseries.javatpoint.com/ecatalog/543/upsssc">UPSSSC</a>
+        <a href="https://testseries.javatpoint.com/exams/government-exams/525">Government Exams</a>
+        <a href="https://testseries.javatpoint.com/ecatalog/exams/ssc/531">SSC</a>
+        <a href="https://testseries.javatpoint.com/exams/civil-services/518">Civil Services</a>
+        <a href="https://testseries.javatpoint.com/tests/555/sbi">SBI</a>
+         
+    </div>
+        <a href="https://testseries.javatpoint.com/ecatalog/303/gate">GATE</a>
+        <a href="https://testseries.javatpoint.com/tests/300/neet">NEET</a>
+        <a href="https://testseries.javatpoint.com/tests/2/cat">CAT</a>
+        <a href="https://testseries.javatpoint.com/exams/railway/527">Railway</a>
+        <a href="https://testseries.javatpoint.com/tests/91/ctet">CTET</a>
+        <a href="https://testseries.javatpoint.com/tests/290/jee-main---advanced">IIT JEE</a>
+        
+    </footer></div>
+
+
+<!-- latest tutorials start --> 
+<h2 class="h2">Learn Latest Tutorials</h2>
+<div class="firsthomecontent">
+
+                        <a href="https://www.javatpoint.com/etl-testing">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/etl-home.jpg" alt="ETL Tutorial">
+                                <p>ETL</p>
+                            </div>  
+                        </a> 
+                        <a href="https://www.javatpoint.com/bugzilla">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/bugzilla-home.png" alt="Bugzilla Tutorial">
+                                <p>Bugzilla</p> 
+                            </div>   
+                        </a> 
+                         <a href="https://www.javatpoint.com/hive">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/hive-home.png" alt="Hive Tutorial">
+                                <p>Hive</p> 
+                            </div>   
+                        </a> 
+                         <a href="https://www.javatpoint.com/jenkins">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/jenkins-home.png" alt="Jenkins Tutorial">
+                                <p>Jenkins</p> 
+                            </div>   
+                        </a> 
+
+                        <a href="https://www.javatpoint.com/pytorch">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/pytorch-home.png" alt="Pytorch Tutorial">
+                                <p>Pytorch</p> 
+                            </div>   
+                        </a> 
+                        <a href="https://www.javatpoint.com/tableau">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/tableau-home.png" alt="Tableau Tutorial">
+                                <p>Tableau</p> 
+                            </div>   
+                        </a> 
+
+</div>
+<hr>
+<!-- preparation start -->  
+<h2 class="h2">Preparation</h2>
+<div class="firsthomecontent"> 
+
+                        <a href="https://www.javatpoint.com/aptitude/quantitative">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/quantitative-aptitude-home.png" alt="Aptitude">
+                                <p>Aptitude</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/reasoning">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/reasoning-home.png" alt="Logical Reasoning">
+                                <p>Reasoning</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/verbal-ability">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/verbal-ability-home.png" alt="Verbal Ability">
+                                <p>Verbal A.</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/interview-questions-and-answers">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/interviewhome.png" alt="Interview Questions">
+                                <p>Interview</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/company-interview-questions-and-recruitment-process">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/company-home.jpeg" alt="Company Interview Questions">
+                                <p>Company</p>
+                            </div> 
+                        </a> 
+
+</div>
+<hr>
+<!-- trending start -->  
+<h2 class="h2">Trending Technologies</h2>
+<div class="firsthomecontent">
+
+                        <a href="https://www.javatpoint.com/artificial-intelligence-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/ai-home.png" alt="Artificial Intelligence Tutorial">
+                                <p>AI</p>
+                            </div> 
+                        </a> 
+                        <a href="https://www.javatpoint.com/aws-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/aws-home.png" alt="AWS Tutorial">
+                                <p>AWS</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/selenium-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/selenium-home.jpg" alt="Selenium tutorial">
+                                <p>Selenium</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/iot-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/iot-home.png" alt="IoT Tutorial">
+                                <p>IoT</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/cloud-computing-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/cloudhome.png" alt="Cloud tutorial">
+                                <p>Cloud</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/hadoop-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/hadoop.jpg" alt="Hadoop tutorial">
+                                <p>Hadoop</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/reactjs-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/reactjs-home.png" alt="ReactJS Tutorial">
+                                <p>ReactJS</p>
+                            </div> 
+                        </a>  
+                        <a href="https://www.javatpoint.com/react-native-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/react-native-home.png" alt="React Native Tutorial">
+                                <p>React Native</p>
+                            </div>
+                        </a> 
+                        <a href="https://www.javatpoint.com/nodejs-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/nodejs-logo.png" alt="Node.js tutorial">
+                                <p>Node.js</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/data-science">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/data-science-home.png" alt="Data Science Tutorial">
+                                <p>D. Science</p>
+                            </div> 
+                        </a>  
+                        <a href="https://www.javatpoint.com/angular-7-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/angular-7-home.png" alt="Angular 7 Tutorial">
+                                <p>Angular 7</p>
+                            </div> 
+                        </a>  
+
+</div>
+ 
+<hr>
+<!-- B.Tech / MCA -->
+                    <h2 class="h2">B.Tech / MCA</h2>
+                    <div class="firsthomecontent">
+                        <a href="https://www.javatpoint.com/dbms-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/dbms-home.jpg" alt="DBMS tutorial">
+                                <p>DBMS</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/data-structure-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/ds-home.png" alt="Data Structures tutorial">
+                                <p>DS</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/daa-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/daa-home.png" alt="DAA tutorial">
+                                <p>DAA</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/os-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/operating-system-home.png" alt="Operating System tutorial">
+                                <p>OS</p>
+                            </div> 
+                        </a>
+                        <a href="https://www.javatpoint.com/computer-network-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/computer-network-home.png" alt="Computer Network tutorial">
+                                <p>C. Network</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/compiler-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/compiler-design-home.png" alt="Compiler Design tutorial">
+                                <p>Compiler D.</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/computer-organization-and-architecture-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/coa-home.png" alt="Computer Organization and Architecture">
+                                <p>COA</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/discrete-mathematics-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/discrete-mathematics-home.png" alt="Discrete Mathematics Tutorial">
+                                <p>D. Math.</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/ethical-hacking-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/ethical-hacking-home.png" alt="Ethical Hacking Tutorial">
+                                <p>E. Hacking</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/computer-graphics-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/computer-graphics-home.png" alt="Computer Graphics Tutorial">
+                                <p>C. Graphics</p>
+                            </div> 
+                        </a>
+                         <a href="https://www.javatpoint.com/software-engineering-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/software-engineering-home.png" alt="Software Engineering Tutorial">
+                                <p>Software E.</p>
+                            </div> 
+                        </a> 
+
+                        <a href="https://www.javatpoint.com/html-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/html-tutorial.png" alt="html tutorial">
+                                <p>Web Tech.</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/cyber-security-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/cyber-security-home.png" alt="Cyber Security tutorial">
+                                <p>Cyber Sec.</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/automata-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/automata-home.jpg" alt="Automata Tutorial">
+                                <p>Automata</p>
+                            </div> 
+                        </a>
+                         
+                        <a href="https://www.javatpoint.com/c-programming-language-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/clanguagehome.png" alt="C Language tutorial">
+                                <p>C</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/cpp-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/cpp-home.png" alt="C++ tutorial">
+                                <p>C++</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/java-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/javahome.png" alt="Java tutorial">
+                                <p>Java</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/net-framework">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/net-home.png" alt=".Net Framework tutorial">
+                                <p>.Net</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/python-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/pythonhome.png" alt="Python tutorial">
+                                <p>Python</p>
+                            </div>
+                        </a>
+
+                        <a href="https://www.javatpoint.com/programs-list">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/programs.jpg" alt="List of Programs">
+                                <p>Programs</p>
+                            </div>
+                        </a>
+                        <a href="https://www.javatpoint.com/control-system-tutorial">
+                            <div class="homecontent"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/control-system-home.jpg" alt="Control Systems tutorial">
+                                <p>Control S.</p>
+                            </div>
+                        </a>
+</div>
+
+
+<div id="_adr_abp_iframe_3" data-section="923cbd3cd31a7d1d2151eeb741432772" class="_adr_abp_iframe" style="display: block; clear: both; width: 728px; height: 104px; margin: 20px auto;"><div style="font-family: Arial, Helvetica, sans-serif; font-size: 9px; text-transform: uppercase; color: rgb(128, 129, 143); background-color: rgba(255, 255, 255, 0.3); line-height: 10px; padding: 2px 4px; width: 98%; height: 8px;"><span style="float: left; font-size: 9px; text-decoration: none; color: rgb(160, 160, 160);">Advertisement</span></div><div id="ad-container-923cbd3cd31a7d1d2151eeb741432772" style="height: 90px; width: 100%; margin: 0px auto; text-align: center; display: none;"></div><iframe id="iframe-ad-container-923cbd3cd31a7d1d2151eeb741432772" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/recover(3).html" scrolling="no" style="width: 100%; height: 90px; margin: 0px; padding: 0px; border: none; display: block;"></iframe></div></div>
+
+
+<br><br><div class="mobilemenu" style="clear:both">
+<ins class="adPushupAds" data-adpcontrol="jrfe7" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSByZXNwb25zaXZlbW9iaWxlZm9vdGVyIC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTpibG9jayIKICAgICBkYXRhLWFkLWNsaWVudD0iY2EtcHViLTQ2OTk4NTg1NDkwMjMzODIiCiAgICAgZGF0YS1hZC1zbG90PSI4MjIyODY2MzE4IgogICAgIGRhdGEtYWQtZm9ybWF0PSJhdXRvIgogICAgIGRhdGEtZnVsbC13aWR0aC1yZXNwb25zaXZlPSJ0cnVlIj48L2lucz4KPHNjcmlwdD4KKGFkc2J5Z29vZ2xlID0gd2luZG93LmFkc2J5Z29vZ2xlIHx8IFtdKS5wdXNoKHt9KTsKPC9zY3JpcHQ+" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+
+</div></div>
+<div id="right">
+
+<ins class="adPushupAds" data-adpcontrol="am3c1" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSBuZXdyaWdodCAtLT4KPGlucyBjbGFzcz0iYWRzYnlnb29nbGUiCiAgICAgc3R5bGU9ImRpc3BsYXk6YmxvY2siCiAgICAgZGF0YS1hZC1jbGllbnQ9ImNhLXB1Yi00Njk5ODU4NTQ5MDIzMzgyIgogICAgIGRhdGEtYWQtc2xvdD0iNjAzNDkxMjU0MSIKICAgICBkYXRhLWFkLWZvcm1hdD0iYXV0byIKICAgICBkYXRhLWZ1bGwtd2lkdGgtcmVzcG9uc2l2ZT0idHJ1ZSI+PC9pbnM+CjxzY3JpcHQ+CihhZHNieWdvb2dsZSA9IHdpbmRvdy5hZHNieWdvb2dsZSB8fCBbXSkucHVzaCh7fSk7Cjwvc2NyaXB0Pg==" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+
+
+<br><br>
+
+<ins class="adPushupAds" data-adpcontrol="am3c1" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSBuZXdyaWdodCAtLT4KPGlucyBjbGFzcz0iYWRzYnlnb29nbGUiCiAgICAgc3R5bGU9ImRpc3BsYXk6YmxvY2siCiAgICAgZGF0YS1hZC1jbGllbnQ9ImNhLXB1Yi00Njk5ODU4NTQ5MDIzMzgyIgogICAgIGRhdGEtYWQtc2xvdD0iNjAzNDkxMjU0MSIKICAgICBkYXRhLWFkLWZvcm1hdD0iYXV0byIKICAgICBkYXRhLWZ1bGwtd2lkdGgtcmVzcG9uc2l2ZT0idHJ1ZSI+PC9pbnM+CjxzY3JpcHQ+CihhZHNieWdvb2dsZSA9IHdpbmRvdy5hZHNieWdvb2dsZSB8fCBbXSkucHVzaCh7fSk7Cjwvc2NyaXB0Pg==" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+
+
+
+<br><br>
+
+</div>
+<div class="right1024" style="float:left;margin-left:10px;margin-top:120px;">
+<!-- right1024only -->
+<ins class="adPushupAds" data-adpcontrol="6d5qg" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSByaWdodDEwMjRvbmx5IC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7d2lkdGg6MTIwcHg7aGVpZ2h0OjYwMHB4IgogICAgIGRhdGEtYWQtY2xpZW50PSJjYS1wdWItNDY5OTg1ODU0OTAyMzM4MiIKICAgICBkYXRhLWFkLXNsb3Q9IjIxODAxMTg3MTYiPjwvaW5zPgo8c2NyaXB0PgooYWRzYnlnb29nbGUgPSB3aW5kb3cuYWRzYnlnb29nbGUgfHwgW10pLnB1c2goe30pOwo8L3NjcmlwdD4K" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+
+<br><br>
+<ins class="adPushupAds" data-adpcontrol="6d5qg" data-ver="2" data-siteid="37780" data-ac="PHNjcmlwdCBhc3luYyBzcmM9Ii8vcGFnZWFkMi5nb29nbGVzeW5kaWNhdGlvbi5jb20vcGFnZWFkL2pzL2Fkc2J5Z29vZ2xlLmpzIj48L3NjcmlwdD4KPCEtLSByaWdodDEwMjRvbmx5IC0tPgo8aW5zIGNsYXNzPSJhZHNieWdvb2dsZSIKICAgICBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7d2lkdGg6MTIwcHg7aGVpZ2h0OjYwMHB4IgogICAgIGRhdGEtYWQtY2xpZW50PSJjYS1wdWItNDY5OTg1ODU0OTAyMzM4MiIKICAgICBkYXRhLWFkLXNsb3Q9IjIxODAxMTg3MTYiPjwvaW5zPgo8c2NyaXB0PgooYWRzYnlnb29nbGUgPSB3aW5kb3cuYWRzYnlnb29nbGUgfHwgW10pLnB1c2goe30pOwo8L3NjcmlwdD4K" data-push="1"></ins><script data-cfasync="false" type="text/javascript">(function (w, d) { for (var i = 0, j = d.getElementsByTagName("ins"), k = j[i]; i < j.length; k = j[++i]){ if(k.className == "adPushupAds" && k.getAttribute("data-push") != "1") { ((w.adpushup = w.adpushup || {}).control = (w.adpushup.control || [])).push(k); k.setAttribute("data-push", "1");} } })(window, document);</script>
+
+
+</div>
+<br>
+<div id="footer" style="clear:both;width:100%">
+
+<!--<div style="width:100%;float:center;margin-top:-20px;color:white;background-image: linear-gradient(145deg,#90715c,#523b1f);line-height:28px;"> <h2 style="padding:60px 0px 0px 20px">Summer Training</h2> <p style="padding:0px 20px 60px 20px">JavaTpoint offers <strong>Summer Internship Training</strong> on Java, PHP, .Net, Hadoop, Data Analytics, R Programming, SAP, Android, Python, Oracle, Seleninum, Linux, C++ and many more technologies in Delhi/NCR, India. For more visit <a style="color:white" href="http://training.javatpoint.com"><img src="https://static.javatpoint.com/images/linkglobe12.png" alt="javatpoint training"/>training.javatpoint.com</a> <br>Course Fee: &#8377; 6000 Only<br>Duration: 6 Week </p></div>--><div style="width:100%;margin-top:10px;color:white;background-image: linear-gradient(145deg,#52a2fc,#480fcc);line-height:28px;"> <h2 style="padding:60px 0px 0px 20px">Javatpoint Services</h2> <p style="padding:0px 20px 0px 20px">JavaTpoint offers too many high quality services. Mail us on hr@javatpoint.com, to get more information about given services. </p><ul class="points"> <li>Website Designing</li><li>Website Development</li><li>Java Development</li><li>PHP Development</li><li>WordPress</li><li>Graphic Designing</li><li>Logo</li><li>Digital Marketing</li><li>On Page and Off Page SEO</li><li>PPC</li><li>Content Development</li><li>Corporate Training</li><li>Classroom and Online Training</li><li>Data Entry</li></ul> <p style="padding-bottom:60px"></p></div><div style="width:100%;margin-top:-20px;color:white;background-image: linear-gradient(145deg,#dc8140,#b16b15);line-height:28px;"> <h2 style="padding:60px 0px 0px 20px">Training For College Campus</h2> <p style="padding:0px 20px 60px 20px">JavaTpoint offers college campus training on Core Java, Advance Java, .Net, Android, Hadoop, PHP, Web Technology and Python. Please mail your requirement at hr@javatpoint.com. <br>Duration: 1 week to 2 week<br></p></div><!--<div class="homebox2"><h2>Our Initiatives</h2><marquee behavior="alternate"><a rel="nofollow noopener" href="https://www.hindi100.com"><div class="box2"><img class="box2img" src="https://www.hindi100.com/resources/images/javatpoint.png" alt="javatpoint"/><p>Hindi100</p></div></a><a rel="nofollow noopener" href="https://www.lyricsia.com"><div class="box2"><img class="box2img" src="https://www.hindi100.com/resources/images/lyrics.png" alt="lyrics"/><p>Lyricsia</p></div></a><a rel="nofollow noopener" href="http://www.hindi-typing.com"><div class="box2"><img class="box2img" src="https://www.hindi100.com/resources/images/hindi-typing.png" alt="hindi-typing"/><p>Hindi-Typing</p></div></a></marquee></div>--><script>var _gaq=_gaq || []; _gaq.push(['_setAccount', 'UA-24880427-1']); _gaq.push(['_trackPageview']); (function(){var ga=document.createElement('script'); ga.type='text/javascript'; ga.async=true; ga.src=('https:'==document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s=document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script><div style="margin-top:5px;text-align:center"> <sup style="font:16px arial;">Like/Subscribe us for latest updates or newsletter </sup> <a target="_blank" rel="nofollow noopener" href="https://feeds.feedburner.com/javatpointsonoo"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/rss1.png" alt="RSS Feed"></a> <a target="_blank" rel="nofollow noopener" href="https://feedburner.google.com/fb/a/mailverify?uri=javatpointsonoo"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/mail1.png" alt="Subscribe to Get Email Alerts"></a> <a rel="nofollow noopener" target="_blank" href="https://www.facebook.com/javatpoint"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/facebook1.jpg" alt="Facebook Page"></a> <a target="_blank noopener" rel="nofollow" href="https://plus.google.com/u/0/+javatpoint"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/google1.png" alt="Google Page"></a> <a target="_blank noopener" rel="nofollow" href="https://twitter.com/pagejavatpoint"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/twitter1.png" alt="Twitter Page"></a> <a target="_blank" rel="nofollow noopener" href="https://www.youtube.com/channel/UCUnYvQVCrJoFWZhKK3O2xLg"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/youtube32.png" alt="YouTube"></a> <a target="_blank" rel="nofollow noopener" href="https://javatpoint.blogspot.com/"><img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/blog.png" alt="Blog Page"></a> </div><footer class="footer1"><div class="column4"><h3>Learn Tutorials</h3><a href="https://www.javatpoint.com/java-tutorial">Learn Java</a><a href="https://www.javatpoint.com/data-structure-tutorial">Learn Data Structures</a><a href="https://www.javatpoint.com/c-programming-language-tutorial">Learn C Programming</a><a href="https://www.javatpoint.com/cpp-tutorial">Learn C++ Tutorial</a><a href="https://www.javatpoint.com/c-sharp-tutorial">Learn C# Tutorial</a><a href="https://www.javatpoint.com/php-tutorial">Learn PHP Tutorial</a><a href="https://www.javatpoint.com/html-tutorial">Learn HTML Tutorial</a><a href="https://www.javatpoint.com/javascript-tutorial">Learn JavaScript Tutorial</a><a href="https://www.javatpoint.com/jquery-tutorial">Learn jQuery Tutorial</a><a href="https://www.javatpoint.com/spring-tutorial">Learn Spring Tutorial</a></div><div class="column4"><h3>Our Websites</h3><a href="https://www.javatpoint.com/">Javatpoint.com</a><a rel="dofollow noopener" target="_blank" href="https://www.hindi100.com/">Hindi100.com</a><a rel="dofollow noopener" target="_blank" href="https://www.lyricsia.com/">Lyricsia.com</a><a rel="nofollow noopener" target="_blank" href="https://www.quoteperson.com/">Quoteperson.com</a><a rel="nofollow noopener" target="_blank" href="http://www.hindi-typing.com/">Hindi-typing.com</a><a rel="nofollow noopener" target="_blank" href="http://www.shayaree.com/">Shayaree.com</a><a rel="nofollow noopener" target="_blank" href="https://www.jobandplacement.com/">Jobandplacement.com</a></div><div class="column4"><h3>Our Services</h3><p>Website Development</p><p>Android Development</p><p>Website Designing</p><p>Digital Marketing</p><p>Summer Training</p><p>Industrial Training</p><p>College Campus Training</p></div><div class="column4"><h3>Contact</h3><p>Address: G-13, 2nd Floor, Sec-3</p><p>Noida, UP, 201301, India</p><p>Contact No: 0120-4256464, 9990449935</p><a href="https://www.javatpoint.com/contact-us">Contact Us</a> <a href="https://www.javatpoint.com/subscribe.jsp">Subscribe Us</a> <a href="https://www.javatpoint.com/privacy-policy">Privacy Policy</a><a href="https://www.javatpoint.com/sitemap.xml">Sitemap</a></div></footer><footer class="footer2"><p>© Copyright 2011-2018 www.javatpoint.com. All rights reserved. Developed by JavaTpoint.</p></footer>
+</div></div> 
+ 
+<script src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/shcoreandbrush.js.download"></script><script type="text/javascript" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/google.js.download"></script>
+<script> dp.SyntaxHighlighter.HighlightAll('code'); </script>
+
+  <ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><iframe frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0px;width:0px;height:0px;" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/saved_resource(16).html"></iframe></ins></ins></ins><table cellspacing="0" cellpadding="0" class="gstl_50 gssb_c" style="width: 796px; display: none; top: 48px; position: absolute; left: 267px;"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table><table cellspacing="0" cellpadding="0" class="gstl_51 gssb_c" style="width: 2px; display: none; top: 3px; position: absolute; left: -1px;"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table><iframe id="google_osd_static_frame_3109575616638" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/saved_resource(17).html"></iframe><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><iframe frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;border:0px;width:0px;height:0px;" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/saved_resource(18).html"></iframe></ins></ins></ins><div style="display:none;position: fixed!important;z-index: 2147483646;padding: 4px 16px;background: #000;text-align: center;color: #fff;font-family: Arial;font-size: 12px;font-weight: 400;opacity: .65;top: 0!important;right: 0!important;border-radius: 2px;"><a href="https://feedify.net/?utm_source=referral&amp;utm_medium=PoweredBy&amp;utm_campaign=https%3A%2F%2Fwww.javatpoint.com%2Fsocket-programming" target="_blank" style="color:#fff;text-decoration:none;">Notifications Powered By Feedify</a></div><div class="feedify_feedback_wrap" style="border: 0px none !important; padding: 0px !important; z-index: 999999999 !important; overflow: visible !important; min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: auto; height: auto !important; position: fixed !important; display: block !important; margin: 0px !important; bottom: auto; top: 50%; left: auto !important; right: 0px !important; transform: translateY(-50%);"><div id="fsidebar_widget" class="fsidebar_right" style="z-index: -9; margin-top: 0px;">    <div class="feedback_button feedback_button_close" style="cursor: pointer;">        <label id="dark-text-label" class="feedback-tab feedify_feedback_tab" style="cursor: pointer;border-color: #cccccc;background-color: #339966;background-repeat: no-repeat;background-position: center bottom;border-width: 0px;border-style: solid;display: inline-block;padding: 7px 5px 8px 6px;;border-radius: 7px 0px 0px 0px;width: auto;margin: 0!important;float: initial!important;min-width: auto;right: 0;">            <span style="height: 87px; width: 22px; background-image: url(&quot;https://feedify.net//thirdprtyimage/1561536925__yfsfzef8.png&quot;); background-position: 0px 0px;text-decoration: none;display: block;">&nbsp;</span><span class="feed_tline"></span><span class="feedify_feedback_bottom" style="display: block;height: 22px;border-radius: 0px 0px 0px 7px;position: absolute;text-align: center;width: 100%;left: 0px;bottom: -26px;">     <span class="feed_dot" style="border-radius: 0px 0px 0px 7px;"></span>     <span class="feed_dot"></span>     <span class="feed_dot"></span>     </span>        </label>    <img src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/chaticon-2.png" id="feedback_2" style="width:100%;background-color: #26b99a;border-radius: 100%;">    </div>    </div>    <div class="feedback_form" style="margin-left: 0px;background-color:undefined;undefined"></div><style>#fsidebar_widget{    float: left;position: relative;}.feedback_form { position: fixed; right: 0;top: 50%;/* width: 50%; */display: block;background-color: #fff;height: 3px;}#feedback_2{display: none;}span.feedify_feedback_bottom:after {content: " ";position: absolute;width: 10px;height: 10px;top: 18px;left: 10px;border-left: 18px solid transparent;border-top: 8px solid #339966;box-sizing: border-box;-webkit-backface-visibility: visible!important;}span.feed_dot{width: 33.33%;height: 18px;display: block;float:left;position: relative;overflow: hidden;-webkit-backface-visibility: visible !important;-webkit-backface-visibility: visible !important;}span.feed_dot:first-child:after{left: 5px;-webkit-backface-visibility: visible !important;}span.feed_dot:after{content: '';position: absolute;left: 4px;top: 4px;border-radius: 100%;width: 5px;height: 5px;box-shadow: 0px 0px 0px 65px #339966;-webkit-backface-visibility: visible !important;}span.feed_dot:last-child:after{left: 2px;-webkit-backface-visibility: visible !important;}.feed_tline{overflow: hidden;width: 100%;height: 5px;display: block;position: absolute;bottom: -4px;left: 0px;}span.feed_tline:after {content: '';position: absolute;left: 4px;top: 0px;border-radius: 15%;width: 25px;height: 3px;box-shadow: 0px 0px 0px 27px #339966;-webkit-backface-visibility: visible !important;}@media (max-width: 768px){div#fsidebar_widget{z-index: 999;right: 17px;bottom: 5px;position: fixed;width:48px;height: 48px;-webkit-box-shadow: 0 4px 5px -1px rgba(0,0,0,0.5);-moz-box-shadow: 0 4px 5px -1px rgba(0,0,0,0.5);    box-shadow: 0 4px 5px -1px rgba(0,0,0,0.5);border-radius: 100%;}div#fsidebar_widget.fsidebar_left{left: 17px!important;}#feedback_2{display: block;}#feedback_1{display: none;}.feedback_form, .feedify_feedback_tab{display: none!important;}}</style><style>.animate{-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-transition-timing-function:cubic-bezier(.86,0,.07,1);transition-timing-function:cubic-bezier(.86,0,.07,1);opacity:0;display:none}.rotated{-webkit-animation-name:rotateInUpRight;animation-name:rotateInUpRight}.rotatedBack{-webkit-animation-name:rotateOutDownRight;animation-name:rotateOutDownRight}@-webkit-keyframes rotateInUpRight{from{                -webkit-transform-origin:right;                transform-origin:right;                -webkit-transform:rotate3d(0,0,1,-15deg) scale(.8);                transform:rotate3d(0,0,1,-15deg) scale(.8);opacity:0;            }to{                -webkit-transform-origin:right;                transform-origin:right;                -webkit-transform:none;                transform:none;opacity:1;            }        }        @keyframes rotateInUpRight{            from{                -webkit-transform-origin:right;                transform-origin:right;                -webkit-transform:rotate3d(0,0,1,-15deg) scale(.8);                transform:rotate3d(0,0,1,-15deg) scale(.8);                opacity:0;            }to{                -webkit-transform-origin:right;                transform-origin:right;                -webkit-transform:none;                transform:none;                opacity:1;            }        }@-webkit-keyframes rotateOutDownRight{from{-webkit-transform-origin:right;transform-origin:right;opacity:1}to{-webkit-transform-origin:right;transform-origin:right;-webkit-transform:rotate3d(0,0,1,-15deg) scale(.8);transform:rotate3d(0,0,1,-15deg) scale(.8);opacity:0}}@keyframes rotateOutDownRight{from{-webkit-transform-origin:right;transform-origin:right;opacity:1}to{-webkit-transform-origin:right;transform-origin:right;-webkit-transform:rotate3d(0,0,1,-15deg) scale(.8);transform:rotate3d(0,0,1,-15deg) scale(.8);opacity:0}}.rotatedLeft{-webkit-animation-name:rotateInUpLeft;animation-name:rotateInUpLeft}.rotatedBackLeft{-webkit-animation-name:rotateOutDownLeft;animation-name:rotateOutDownLeft}@-webkit-keyframes rotateInUpLeft{            from {                -webkit-transform-origin:left;                transform-origin: left;                -webkit-transform: rotate3d(0, 0, 1, 15deg) scale(.8);                transform: rotate3d(0, 0, 1, 15deg) scale(.8);                opacity: 0;            }            to {                -webkit-transform-origin:left;                transform-origin: left;                -webkit-transform:none;                transform: none;                opacity: 1;            }        }        @keyframes rotateInUpLeft{            from {                -webkit-transform-origin:left;                transform-origin: left;                -webkit-transform: rotate3d(0, 0, 1, 15deg) scale(.8);                transform: rotate3d(0, 0, 1, 15deg) scale(.8);                opacity: 0;            }            to {                -webkit-transform-origin:left;                transform-origin: left;                -webkit-transform:none;                transform: none;                opacity: 1;            }        }@-webkit-keyframes rotateOutDownLeft{            from {                -webkit-transform-origin:left;                transform-origin:left;                opacity: 1;            }            to {                -webkit-transform-origin:left;                transform-origin:left;                -webkit-transform: rotate3d(0, 0, 1, 15deg) scale(.8);                transform: rotate3d(0, 0, 1, 15deg) scale(.8);                opacity: 0;            }        }        @keyframes rotateOutDownLeft{            from {                -webkit-transform-origin:left;                transform-origin:left;                opacity: 1;            }            to {                -webkit-transform-origin:left;                transform-origin:left;                -webkit-transform: rotate3d(0, 0, 1, 15deg) scale(.8);                transform: rotate3d(0, 0, 1, 15deg) scale(.8);                opacity: 0;            }        }</style></div></body><iframe id="google_shimpl" style="display: none;" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/saved_resource(19).html"></iframe><iframe id="google_esf" name="google_esf" src="./Java Socket Programming (Java Networking Tutorial) - javatpoint_files/zrt_lookup.html" data-ad-client="ca-pub-4699858549023382" style="display: none;"></iframe></html>
