@@ -19,5 +19,6 @@ For FCI Fayoum (CS & IS) students, you can find all the lab materials we discuss
 2. [Programming Hive by Edward Capriolo, Dean Wampler, and Jason Rutherglen](https://www.oreilly.com/library/view/programming-hive/9781449326944/)
 
 #### Join Bigdata Slack Channel:
-[Bigdata Slack Channel](https://join.slack.com/t/fcifayoumbigd-dyn4223/shared_invite/zt-1i0git3ww-3K9IxgKvdzPYGanjIvNijg)
 ![image info](./Extra/slack-channel-qr.png)
+[Bigdata Slack Channel](https://join.slack.com/t/fcifayoumbigd-dyn4223/shared_invite/zt-1i0git3ww-3K9IxgKvdzPYGanjIvNijg)
+
