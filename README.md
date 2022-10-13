@@ -20,5 +20,7 @@ For FCI Fayoum (CS & IS) students, you can find all the lab materials we discuss
 
 #### Join Bigdata Slack Channel:
 ![image info](./Extra/slack-channel-qr.png)
-[Bigdata Slack Channel](https://join.slack.com/t/fcifayoumbigd-dyn4223/shared_invite/zt-1i0git3ww-3K9IxgKvdzPYGanjIvNijg)
+<br />
+<br />
+[Bigdata Slack Channel URL](https://join.slack.com/t/fcifayoumbigd-dyn4223/shared_invite/zt-1i0git3ww-3K9IxgKvdzPYGanjIvNijg)
 
