@@ -14,9 +14,13 @@ For FCI Fayoum (CS & IS) students, you can find all the lab materials we discuss
 | Lab 6      |  Hadoop Multi Node (Cluster)|  |
 | Lab 7      |  Hive Part1|  |
 
-####Lab Reference book: 
+#### Lab Reference book: 
 1. [Hadoop: The Definitive Guide, 4th Edition by Tom White, 2015](https://www.oreilly.com/library/view/hadoop-the-definitive/9781491901687/)
 2. [Programming Hive by Edward Capriolo, Dean Wampler, and Jason Rutherglen](https://www.oreilly.com/library/view/programming-hive/9781449326944/)
 
-####Join Bigdata Slack Channel:
+#### Join Bigdata Slack Channel:
 ![image info](./Extra/slack-channel-qr.png)
+<br />
+<br />
+[Bigdata Slack Channel URL](https://join.slack.com/t/fcifayoumbigd-dyn4223/shared_invite/zt-1i0git3ww-3K9IxgKvdzPYGanjIvNijg)
+
