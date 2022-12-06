@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://programmer.group/inverted-index-for-mapreduce-programming-development.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./Inverted Index for MapReduce Programming Development_files/application.css">
+    <title>Inverted Index for MapReduce Programming Development</title>
+    <meta name="keywords" content="Hadoop,Apache,Java,Linux">
+    <meta name="description" content=" Inverted index is a variant of word frequency statistics, in fact, it is also a word frequency statistics, but this word frequency statistics need to add the name of the file. Inverted index is widely used for full-text retrieval. The final result of the inverted index is a collection of the nUTF-8...">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+        <script src="./Inverted Index for MapReduce Programming Development_files/hm.js.download"></script><script type="text/javascript" src="./Inverted Index for MapReduce Programming Development_files/saved_resource" defer="" async=""></script><script> var vitag = vitag || {};</script>
+    </head>
+<body data-new-gr-c-s-check-loaded="14.1088.0" data-gr-ext-installed="" cz-shortcut-listen="true">
+<div class="container header">
+    <div class="header_logo">
+        <h1><a href="https://programmer.group/">Programmer Group</a></h1>
+        <p>A programming skills sharing group</p>
+    </div>
+    <ul class="header_menu">
+        <li>
+            <a href="https://programmer.group/">Home</a>
+        </li>
+        <li>
+            <a href="https://programmer.group/articles/">Articles</a>
+        </li>
+        <li>
+            <a href="https://programmer.group/keywords/">Keywords</a>
+        </li>
+    </ul>
+</div>
+
+    <div class="container body">
+        <div class="content">
+                <h1 class="blog-title">Inverted Index for MapReduce Programming Development</h1>
+    
+            <p class="blog-tags">Keywords:
+                            <a href="https://programmer.group/keywords/hadoop">Hadoop</a>
+                            <a href="https://programmer.group/keywords/apache">Apache</a>
+                            <a href="https://programmer.group/keywords/java">Java</a>
+                            <a href="https://programmer.group/keywords/linux">Linux</a>
+                    </p>
+        <div class="blog-content">
+        
+        <div>
+                                            <p>Inverted index is a variant of word frequency statistics, in fact, it is also a word frequency statistics, but this word frequency statistics need to add the name of the file. Inverted index is widely used for full-text retrieval. The final result of the inverted index is a collection of the number of times a word appears in a document. Take the following data as an example:</p>
+
+<p>file1.txt</p>
+
+<blockquote><pre>hdfs hadoop mapreduce
+hdfs bigdata
+hadoop mapreduce
+</pre></blockquote>
+
+<p>file2.txt</p>
+
+<blockquote><pre>mapreduce hdfs
+hadoop bigdata mapreduce
+hdfs hadoop
+hdfs mapreduce
+bigdata hadoop</pre></blockquote>
+
+<p>file3.txt</p>
+
+<blockquote><pre>bigdata hadoop mapreduce hdfs
+hadoop hdfs mapreduce
+bigdata hadoop</pre></blockquote>
+
+<p>The final result is:</p>
+
+<blockquote><pre>bigdata	file3.txt:2;file2.txt:2;file1.txt:1;
+hadoop	file1.txt:2;file3.txt:3;file2.txt:3;
+hdfs	file2.txt:3;file1.txt:2;file3.txt:2;
+mapreduce	file3.txt:2;file1.txt:2;file2.txt:3;</pre></blockquote>
+
+<p>The design idea of inverted index is similar to that of word frequency statistics, but it is not the same. Here we need to add the files of words to make statistics. To achieve this effect, first of all, we need to make a statistics of the words and the documents they appear. So in map, we do the same as word frequency statistics, except that the output words are not single words, but words +":"+files, similar to this:</p>
+
+<p>&lt;hdfs:file1.txt , 1&gt;<br>
+&lt;hdfs:file2.txt , 1&gt;<br>
+&lt;hdfs:file3.txt , 1&gt;<br>
+&lt;hadoop:file1.txt , 1&gt;<br>
+&lt;mapreduce:file3.txt , 1&gt;</p>
+
+<p>Before reducing, we need to carry out a combine process, in which our input data is as follows: &lt;Word: Document, &lt;Number of Statistics&gt;:</p>
+
+<p>&lt;hdfs:file1.txt , &lt;1,1&gt;&gt;<br>
+&lt;hadoop:file1.txt , &lt;1,1&gt;&gt;<br>
+&lt;hdfs:file2.txt , &lt;1,1,1&gt;&gt;<br>
+&lt;hdfs:file3.txt , &lt;1,1&gt;&gt;</p>
+
+<p>We made a change and output it as &lt;Words, Documents: Statistics and &gt;</p>
+
+<p>&lt;hdfs , file1.txt:2&gt;<br>
+&lt;hdfs , file2.txt:3&gt;<br>
+&lt;hdfs , file3.txt:2&gt;</p>
+
+<p>In the reduce phase, we can splice the values together. To sum up the process with a diagram is:</p>
+
+<p><img src="./Inverted Index for MapReduce Programming Development_files/8df35634e5cf3b1bc8b2de03d1359672.jpg" alt=""></p>
+
+<p>The code for inverted index is given below:</p>
+
+<blockquote><pre>package com.xxx.hadoop.mapred;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+/**
+ * Inverted index
+ *
+ */
+public class InvertIndexApp {
+
+	public static class Map extends Mapper&lt;LongWritable, Text, Text, Text&gt;{
+		private Text keyinfo = new Text();
+		private Text valueinfo = new Text();
+		private FileSplit split;
+		protected void map(LongWritable key, Text value,
+				Context context) throws IOException ,InterruptedException {
+			split = (FileSplit)context.getInputSplit();
+			StringTokenizer tokenizer = new StringTokenizer(value.toString());
+			while(tokenizer.hasMoreTokens()) {
+				int splitIndex = split.getPath().toString().indexOf("file");
+				keyinfo.set(tokenizer.nextToken()+":"+split.getPath().toString().substring(splitIndex));
+				valueinfo.set("1");
+				context.write(keyinfo, valueinfo);
+			}
+		}
+	}
+	
+	
+	public static class Combine extends Reducer&lt;Text, Text, Text, Text&gt;{
+		private Text info = new Text();
+		protected void reduce(Text key, java.lang.Iterable&lt;Text&gt; values, 
+				Context context) throws IOException ,InterruptedException {
+			int sum = 0;
+			for(Text value:values) {
+				sum += Integer.parseInt(value.toString());
+			}
+			int splitIndex = key.toString().indexOf(":");
+			info.set(key.toString().substring(splitIndex+1)+":"+sum);
+			key.set(key.toString().substring(0,splitIndex));
+			context.write(key, info);
+		}
+	}
+	
+	public static class Reduce extends Reducer&lt;Text, Text, Text, Text&gt;{
+		private Text result = new Text();
+		protected void reduce(Text key, Iterable&lt;Text&gt; values,
+				Context context) throws java.io.IOException ,InterruptedException {	
+			String filelist = new String();
+			for(Text value:values) {
+				filelist += value.toString()+";";
+			}
+			result.set(filelist);
+			context.write(key, result);
+		};
+	}
+	public static void main(String[] args) throws Exception{
+		String input = "/user/root/invertindex/input";
+		String output = "/user/root/invertindex/output";
+		System.setProperty("HADOOP_USER_NAME", "root");
+		Configuration conf = new Configuration();
+		conf.set("fs.defaultFS", "hdfs://192.168.56.202:9000");
+		FileSystem fs = FileSystem.get(conf);
+		boolean exists = fs.exists(new Path(output));
+		if(exists) {
+			fs.delete(new Path(output), true);
+		}
+		Job job = Job.getInstance(conf);
+		job.setJarByClass(InvertIndexApp.class);
+		
+		job.setMapperClass(Map.class);
+		job.setCombinerClass(Combine.class);
+		job.setReducerClass(Reduce.class);
+		
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+		
+		FileInputFormat.addInputPath(job, new Path(input));
+		FileOutputFormat.setOutputPath(job, new Path(output));
+		System.exit(job.waitForCompletion(true)?0:1);
+	}
+
+}
+</pre></blockquote>
+
+<p>Prepare data before running:</p>
+
+<p><img src="./Inverted Index for MapReduce Programming Development_files/ea8c45db096726e6fc0424e55119b659.jpg" alt=""></p>
+
+<p>Running the program, the console prints the information as follows:</p>
+
+<blockquote><pre>2019-09-02 09:56:22 [INFO ]  [main]  [org.apache.hadoop.conf.Configuration.deprecation] session.id is deprecated. Instead, use dfs.metrics.session-id
+2019-09-02 09:56:22 [INFO ]  [main]  [org.apache.hadoop.metrics.jvm.JvmMetrics] Initializing JVM Metrics with processName=JobTracker, sessionId=
+2019-09-02 09:56:22 [WARN ]  [main]  [org.apache.hadoop.mapreduce.JobResourceUploader] Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2019-09-02 09:56:22 [WARN ]  [main]  [org.apache.hadoop.mapreduce.JobResourceUploader] No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+2019-09-02 09:56:22 [INFO ]  [main]  [org.apache.hadoop.mapreduce.lib.input.FileInputFormat] Total input paths to process : 3
+2019-09-02 09:56:22 [INFO ]  [main]  [org.apache.hadoop.mapreduce.JobSubmitter] number of splits:3
+2019-09-02 09:56:22 [INFO ]  [main]  [org.apache.hadoop.mapreduce.JobSubmitter] Submitting tokens for job: job_local1888565320_0001
+2019-09-02 09:56:23 [INFO ]  [main]  [org.apache.hadoop.mapreduce.Job] The url to track the job: http://localhost:8080/
+2019-09-02 09:56:23 [INFO ]  [main]  [org.apache.hadoop.mapreduce.Job] Running job: job_local1888565320_0001
+2019-09-02 09:56:23 [INFO ]  [Thread-3]  [org.apache.hadoop.mapred.LocalJobRunner] OutputCommitter set in config null
+2019-09-02 09:56:23 [INFO ]  [Thread-3]  [org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter] File Output Committer Algorithm version is 1
+2019-09-02 09:56:23 [INFO ]  [Thread-3]  [org.apache.hadoop.mapred.LocalJobRunner] OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2019-09-02 09:56:23 [INFO ]  [Thread-3]  [org.apache.hadoop.mapred.LocalJobRunner] Waiting for map tasks
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] Starting task: attempt_local1888565320_0001_m_000000_0
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter] File Output Committer Algorithm version is 1
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.yarn.util.ProcfsBasedProcessTree] ProcfsBasedProcessTree currently is supported only on Linux.
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task]  Using ResourceCalculatorProcessTree : org.apache.hadoop.yarn.util.WindowsBasedProcessTree@e65aa68
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Processing split: hdfs://192.168.56.202:9000/user/root/invertindex/input/file2.txt:0+82
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] (EQUATOR) 0 kvi 26214396(104857584)
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] mapreduce.task.io.sort.mb: 100
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] soft limit at 83886080
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] bufstart = 0; bufvoid = 104857600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] kvstart = 26214396; length = 6553600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] 
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Starting flush of map output
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Spilling map output
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] bufstart = 0; bufend = 214; bufvoid = 104857600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] kvstart = 26214396(104857584); kvend = 26214356(104857424); length = 41/6553600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Finished spill 0
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task] Task:attempt_local1888565320_0001_m_000000_0 is done. And is in the process of committing
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] map
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task] Task 'attempt_local1888565320_0001_m_000000_0' done.
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] Finishing task: attempt_local1888565320_0001_m_000000_0
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] Starting task: attempt_local1888565320_0001_m_000001_0
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter] File Output Committer Algorithm version is 1
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.yarn.util.ProcfsBasedProcessTree] ProcfsBasedProcessTree currently is supported only on Linux.
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task]  Using ResourceCalculatorProcessTree : org.apache.hadoop.yarn.util.WindowsBasedProcessTree@4012ecfc
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Processing split: hdfs://192.168.56.202:9000/user/root/invertindex/input/file3.txt:0+67
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] (EQUATOR) 0 kvi 26214396(104857584)
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] mapreduce.task.io.sort.mb: 100
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] soft limit at 83886080
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] bufstart = 0; bufvoid = 104857600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] kvstart = 26214396; length = 6553600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] 
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Starting flush of map output
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Spilling map output
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] bufstart = 0; bufend = 175; bufvoid = 104857600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] kvstart = 26214396(104857584); kvend = 26214364(104857456); length = 33/6553600
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Finished spill 0
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task] Task:attempt_local1888565320_0001_m_000001_0 is done. And is in the process of committing
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] map
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task] Task 'attempt_local1888565320_0001_m_000001_0' done.
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] Finishing task: attempt_local1888565320_0001_m_000001_0
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] Starting task: attempt_local1888565320_0001_m_000002_0
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter] File Output Committer Algorithm version is 1
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.yarn.util.ProcfsBasedProcessTree] ProcfsBasedProcessTree currently is supported only on Linux.
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task]  Using ResourceCalculatorProcessTree : org.apache.hadoop.yarn.util.WindowsBasedProcessTree@157add31
+2019-09-02 09:56:23 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Processing split: hdfs://192.168.56.202:9000/user/root/invertindex/input/file1.txt:0+52
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] (EQUATOR) 0 kvi 26214396(104857584)
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] mapreduce.task.io.sort.mb: 100
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] soft limit at 83886080
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] bufstart = 0; bufvoid = 104857600
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] kvstart = 26214396; length = 6553600
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] 
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Starting flush of map output
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Spilling map output
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] bufstart = 0; bufend = 136; bufvoid = 104857600
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] kvstart = 26214396(104857584); kvend = 26214372(104857488); length = 25/6553600
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.MapTask] Finished spill 0
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task] Task:attempt_local1888565320_0001_m_000002_0 is done. And is in the process of committing
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] map
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.Task] Task 'attempt_local1888565320_0001_m_000002_0' done.
+2019-09-02 09:56:24 [INFO ]  [LocalJobRunner Map Task Executor #0]  [org.apache.hadoop.mapred.LocalJobRunner] Finishing task: attempt_local1888565320_0001_m_000002_0
+2019-09-02 09:56:24 [INFO ]  [Thread-3]  [org.apache.hadoop.mapred.LocalJobRunner] map task executor complete.
+2019-09-02 09:56:24 [INFO ]  [main]  [org.apache.hadoop.mapreduce.Job] Job job_local1888565320_0001 running in uber mode : false
+2019-09-02 09:56:24 [INFO ]  [main]  [org.apache.hadoop.mapreduce.Job]  map 100% reduce 0%
+2019-09-02 09:56:24 [INFO ]  [Thread-3]  [org.apache.hadoop.mapred.LocalJobRunner] Waiting for reduce tasks
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.LocalJobRunner] Starting task: attempt_local1888565320_0001_r_000000_0
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter] File Output Committer Algorithm version is 1
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.yarn.util.ProcfsBasedProcessTree] ProcfsBasedProcessTree currently is supported only on Linux.
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Task]  Using ResourceCalculatorProcessTree : org.apache.hadoop.yarn.util.WindowsBasedProcessTree@27512f1a
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.ReduceTask] Using ShuffleConsumerPlugin: org.apache.hadoop.mapreduce.task.reduce.Shuffle@4ac60620
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] MergerManager: memoryLimit=1265788544, maxSingleShuffleLimit=316447136, mergeThreshold=835420480, ioSortFactor=10, memToMemMergeOutputsThreshold=10
+2019-09-02 09:56:24 [INFO ]  [EventFetcher for fetching Map Completion Events]  [org.apache.hadoop.mapreduce.task.reduce.EventFetcher] attempt_local1888565320_0001_r_000000_0 Thread started: EventFetcher for fetching Map Completion Events
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.LocalFetcher] localfetcher#1 about to shuffle output of map attempt_local1888565320_0001_m_000001_0 decomp: 88 len: 92 to MEMORY
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput] Read 88 bytes from map-output for attempt_local1888565320_0001_m_000001_0
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] closeInMemoryFile -&gt; map-output of size: 88, inMemoryMapOutputs.size() -&gt; 1, commitMemory -&gt; 0, usedMemory -&gt;88
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.LocalFetcher] localfetcher#1 about to shuffle output of map attempt_local1888565320_0001_m_000002_0 decomp: 88 len: 92 to MEMORY
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput] Read 88 bytes from map-output for attempt_local1888565320_0001_m_000002_0
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] closeInMemoryFile -&gt; map-output of size: 88, inMemoryMapOutputs.size() -&gt; 2, commitMemory -&gt; 88, usedMemory -&gt;176
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.LocalFetcher] localfetcher#1 about to shuffle output of map attempt_local1888565320_0001_m_000000_0 decomp: 88 len: 92 to MEMORY
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput] Read 88 bytes from map-output for attempt_local1888565320_0001_m_000000_0
+2019-09-02 09:56:24 [INFO ]  [localfetcher#1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] closeInMemoryFile -&gt; map-output of size: 88, inMemoryMapOutputs.size() -&gt; 3, commitMemory -&gt; 176, usedMemory -&gt;264
+2019-09-02 09:56:24 [INFO ]  [EventFetcher for fetching Map Completion Events]  [org.apache.hadoop.mapreduce.task.reduce.EventFetcher] EventFetcher is interrupted.. Returning
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.LocalJobRunner] 3 / 3 copied.
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] finalMerge called with 3 in-memory map-outputs and 0 on-disk map-outputs
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Merger] Merging 3 sorted segments
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Merger] Down to the last merge-pass, with 3 segments left of total size: 234 bytes
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] Merged 3 segments, 264 bytes to disk to satisfy reduce memory limit
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] Merging 1 files, 264 bytes from disk
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl] Merging 0 segments, 0 bytes from memory into reduce
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Merger] Merging 1 sorted segments
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Merger] Down to the last merge-pass, with 1 segments left of total size: 250 bytes
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.LocalJobRunner] 3 / 3 copied.
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.conf.Configuration.deprecation] mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Task] Task:attempt_local1888565320_0001_r_000000_0 is done. And is in the process of committing
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.LocalJobRunner] 3 / 3 copied.
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Task] Task attempt_local1888565320_0001_r_000000_0 is allowed to commit now
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter] Saved output of task 'attempt_local1888565320_0001_r_000000_0' to hdfs://192.168.56.202:9000/user/root/invertindex/output/_temporary/0/task_local1888565320_0001_r_000000
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.LocalJobRunner] reduce &gt; reduce
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.Task] Task 'attempt_local1888565320_0001_r_000000_0' done.
+2019-09-02 09:56:24 [INFO ]  [pool-6-thread-1]  [org.apache.hadoop.mapred.LocalJobRunner] Finishing task: attempt_local1888565320_0001_r_000000_0
+2019-09-02 09:56:24 [INFO ]  [Thread-3]  [org.apache.hadoop.mapred.LocalJobRunner] reduce task executor complete.
+2019-09-02 09:56:25 [INFO ]  [main]  [org.apache.hadoop.mapreduce.Job]  map 100% reduce 100%
+2019-09-02 09:56:25 [INFO ]  [main]  [org.apache.hadoop.mapreduce.Job] Job job_local1888565320_0001 completed successfully
+2019-09-02 09:56:25 [INFO ]  [main]  [org.apache.hadoop.mapreduce.Job] Counters: 35
+	File System Counters
+		FILE: Number of bytes read=4510
+		FILE: Number of bytes written=1098080
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=633
+		HDFS: Number of bytes written=178
+		HDFS: Number of read operations=37
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=10
+	Map-Reduce Framework
+		Map input records=11
+		Map output records=27
+		Map output bytes=525
+		Map output materialized bytes=276
+		Input split bytes=387
+		Combine input records=27
+		Combine output records=12
+		Reduce input groups=4
+		Reduce shuffle bytes=276
+		Reduce input records=12
+		Reduce output records=4
+		Spilled Records=24
+		Shuffled Maps =3
+		Failed Shuffles=0
+		Merged Map outputs=3
+		GC time elapsed (ms)=8
+		Total committed heap usage (bytes)=1485307904
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=201
+	File Output Format Counters 
+		Bytes Written=178
+</pre></blockquote>
+
+<p>View the results of the operation:</p>
+
+<p><img src="./Inverted Index for MapReduce Programming Development_files/fa8022f828bbef0af54c70d2fda530df.jpg" alt=""></p>
+
+<p>What's different from the normal MapReduce program is that we specify a combine process in the way we display it between map and reduce. In this process, we modify &lt; key, value&gt; to make it simpler in the reduce phase. In fact, the ordinary MapReduce program also has the process of combine, but this combine should not be ignored, because its default implementation is the implementation of reduce.</p>
+                                    </div>
+
+        
+    </div>
+    <p class="blog-user-date">Posted by <b>cmaclennan</b> on <i>Mon, 07 Oct 2019 18:50:03 -0700</i></p>
+
+    
+        </div><!--
+        --><div class="sidebar">
+            <h3>Hot Keywords</h3>
+<ul class="hot-tags">
+        <li><a href="https://programmer.group/keywords/java">Java</a> - 6961</li>
+        <li><a href="https://programmer.group/keywords/database">Database</a> - 2683</li>
+        <li><a href="https://programmer.group/keywords/python">Python</a> - 2616</li>
+        <li><a href="https://programmer.group/keywords/programming">Programming</a> - 2419</li>
+        <li><a href="https://programmer.group/keywords/attribute">Attribute</a> - 2418</li>
+        <li><a href="https://programmer.group/keywords/javascript">Javascript</a> - 2383</li>
+        <li><a href="https://programmer.group/keywords/spring">Spring</a> - 2111</li>
+        <li><a href="https://programmer.group/keywords/android">Android</a> - 2077</li>
+        <li><a href="https://programmer.group/keywords/xml">xml</a> - 1972</li>
+        <li><a href="https://programmer.group/keywords/linux">Linux</a> - 1818</li>
+        <li><a href="https://programmer.group/keywords/json">JSON</a> - 1764</li>
+        <li><a href="https://programmer.group/keywords/network">network</a> - 1748</li>
+        <li><a href="https://programmer.group/keywords/github">github</a> - 1720</li>
+        <li><a href="https://programmer.group/keywords/less">less</a> - 1676</li>
+        <li><a href="https://programmer.group/keywords/mysql">MySQL</a> - 1538</li>
+        <li><a href="https://programmer.group/keywords/sql">SQL</a> - 1332</li>
+        <li><a href="https://programmer.group/keywords/php">PHP</a> - 1318</li>
+        <li><a href="https://programmer.group/keywords/encoding">encoding</a> - 1179</li>
+        <li><a href="https://programmer.group/keywords/mobile">Mobile</a> - 1029</li>
+        <li><a href="https://programmer.group/keywords/apache">Apache</a> - 925</li>
+    </ul>
+                                    <div class="adsbyvli" data-ad-slot="vi_1723173608" style="width: 300px; height: 600px"></div><script>(vitag.Init = window.vitag.Init || []).push(function(){viAPItag.display("vi_1723173608")})</script>
+                                </div>
+    </div>
+
+<div class="container footer">
+    ©2022 <a href="https://programmer.group/">Programmer Group</a>
+    <script type="text/javascript">
+        var html = '<a href="' + '/contact-us/' + '">';
+        html += 'Contact Us' + '</a>';
+        document.write(html)
+    </script><a href="https://programmer.group/contact-us/">Contact Us</a>
+</div><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d7bf9444002eae37b376d383e524c0cb";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script async="" src="./Inverted Index for MapReduce Programming Development_files/js"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-136936861-2');
+</script>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
