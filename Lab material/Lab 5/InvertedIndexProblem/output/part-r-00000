@@ -1,0 +1,4 @@
+bigdata	file2:2;file3:2;file1:1;
+hadoop	file1:2;file2:3;file3:3;
+hdfs	file3:2;file1:2;file2:3;
+mapreduce	file2:3;file1:2;file3:2;
