@@ -1,0 +1,59 @@
+
+
+How to install  Hive 1.2.1
+
+
+Prerequisites hadoop installation.
+
+cd ~
+cd Downloads/
+
+wget http://archive.apache.org/dist/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz
+
+sudo tar -xvzf apache-hive-1.2.1-bin.tar.gz
+
+cd apache-hive-1.2.1-bin
+
+sudo mkdir /usr/local/hive
+
+sudo mv * /usr/local/hive
+
+
+su hduser 
+
+
+sudo gedit ~/.bashrc
+
+#HIVE VARIABLES START
+export HIVE_HOME=/usr/local/hive
+export PATH=$PATH:/usr/local/hive/bin
+#HIVE VARIABLES END
+
+
+source ~/.bashrc
+
+start-all.sh
+
+hdfs dfs -mkdir -p /user/hive/warehouse
+hdfs dfs -mkdir -p /tmp/hive
+
+hdfs dfs -chmod 777 /user/hive/warehouse
+hdfs dfs -chmod 777 /tmp
+hdfs dfs -chmod 777 /tmp/hive
+
+
+sudo rm -rf /usr/local/hive/lib/log4j-1.2.16.jar 
+
+sudo chown -R hduser:hadoop /usr/local/hive
+
+schematool -initSchema -dbType derby
+
+hive
+
+
+
+
+
+
+
+

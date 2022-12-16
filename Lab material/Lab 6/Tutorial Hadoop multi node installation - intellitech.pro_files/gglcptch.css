@@ -1,0 +1,30 @@
+#commentform .gglcptch {
+	margin: 0 0 10px;
+}
+#recaptcha_response_field {
+	height: 17px !important;
+	max-height: 35px !important;
+	font-size: 10pt !important;
+}
+.recaptcha_theme_clean #recaptcha_response_field {
+	height: 25px !important;
+}
+#gglcptch_error {
+	color: #F00;
+}
+.gglcptch table#recaptcha_table {
+	table-layout: auto !important;
+}
+/* in whitelist notification message */
+.gglcptch_whitelist_message {
+	display: block;
+	margin: 12px 0;
+}
+.gglcptch_v2 {
+	min-width: 1px;
+	padding: 10px 0;
+	clear: both;
+}
+.gglcptch_recaptcha .grecaptcha-badge {
+	z-index: 100;
+}

@@ -1,0 +1,2 @@
+1- Hive instllation. 
+2- Create GeoLocation  & Trucks Tables.  Write a query to get all truck models that visited San Diego city.  

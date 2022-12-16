@@ -1,0 +1,12 @@
+
+@media only screen and (min-width: 480px) and (max-width: 768px){
+	/* generated in /home/www/intellitech.pro/wp-content/themes/startit/assets/custom-styles/general-custom-styles-responsive.php qode_startit_design_responsive_styles function */
+.qodef-section.qodef-parallax-section-holder { height: auto !important;min-height: 400px;}
+
+}
+
+@media only screen and (max-width: 480px){
+	/* generated in /home/www/intellitech.pro/wp-content/themes/startit/assets/custom-styles/general-custom-styles-responsive.php qode_startit_design_responsive_styles function */
+.qodef-section.qodef-parallax-section-holder { height: auto !important;min-height: 400px;}
+
+}

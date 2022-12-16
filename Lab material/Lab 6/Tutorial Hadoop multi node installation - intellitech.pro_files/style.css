@@ -1,0 +1,505 @@
+/*
+*  Plugin css
+*
+*/
+.fixcarousel{
+	width:100%;
+}
+
+.entry-content a{
+    box-shadow: none !important;
+}
+.content_area{
+
+}
+.excerpt_details, #excerpt_color_area{
+	display: none;
+}
+.custom_details{
+	display: none;
+}
+
+.portfolio-item img {
+    height: 180px;
+}
+
+
+
+
+/* Post Slider Style 02   */
+
+.tpcarouselpro-theme2 {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+.tpcarouselpro-theme2-title {
+  background: #000
+  font-size: 15px;
+  text-align: center;
+  color:#fff;
+  bottom: 0;
+  display: block;
+  line-height: 1.4em;
+  padding: 10px 15px;
+  position: absolute;
+  width: 100%;
+}
+.tpcarouselpro-theme2-thumb {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+
+/* Post Slider Style 03   */
+
+.tpcarouselpro-theme3{
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+.tpcarouselpro-theme3 .tpcarouselpro-theme3-img{
+    position: relative;
+}
+.tpcarouselpro-theme3 .tpcarouselpro-theme3-img:before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 115, 190, 0.68) none repeat scroll 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+}
+.tpcarouselpro-theme3:hover .tpcarouselpro-theme3-img:before{
+    opacity: 1;
+}
+.tpcarouselpro-theme3 .tpcarouselpro-theme3-link{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height:100%;
+}
+.tpcarouselpro-theme3 .tpcarouselpro-theme3-link a{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    position: relative;
+    top:45%;
+    display: inline-block;
+    font-size: 16px;
+    transform: rotateZ(180deg);
+    transition: transform 0.3s ease 0s, opacity 0.3s ease 0s;
+}
+.tpcarouselpro-theme3 .tpcarouselpro-theme3-link a:hover{
+    text-decoration: none;
+    color:#718873;
+}
+.tpcarouselpro-theme3:hover .tpcarouselpro-theme3-link a{
+    transform: rotateZ(0deg);
+}
+.tpcarouselpro-theme3 .tpcarouselpro-theme3-link .fa-link{
+    transform-origin: -190% 50% 0;
+}
+.tpcarouselpro-theme3-title{
+	background: #fff;
+	font-size: 14px;
+	text-align: left;
+	color:#fff;
+	display: block;
+	line-height: 30px;
+	overflow: hidden;
+	padding: 5px;
+}
+
+
+
+/* Post Slider Style 04   */
+
+.tpcarouselpro-theme4{
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+.tpcarouselpro-theme4 img{
+    width: 100%;
+}
+.tpcarouselpro-theme4-options{
+    position: absolute;
+    top:-100%;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: #ddd;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme4-options .tpcarouselpro-theme4-link {
+    border: 2px solid #000;
+    position: relative;
+    top: 40%;
+    width: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    display: inline-block;
+    border-radius: 50%;
+    color: #fff;
+	background: #000;
+}
+.tpcarouselpro-theme4-options .tpcarouselpro-theme4-link:hover{
+    color:#fff;
+}
+.tpcarouselpro-theme4:hover .tpcarouselpro-theme4-options{
+    top:0;
+}
+.tpcarouselpro-theme4-title{
+	background: #ddd;
+	font-size: 12px;
+	text-align: center;
+	color:#000;
+	display: block;
+	line-height: 30px;
+	overflow: hidden;
+	padding: 5px;
+}
+
+
+
+
+/* Post Slider Style 05   */
+
+.tpcarouselpro-theme5{
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+.tpcarouselpro-theme5:after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ddd;
+    opacity: 0;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme5:hover:after{
+    opacity: 1;
+}
+.tpcarouselpro-theme5 img{
+    width: 100%;
+    height: auto;
+}
+.tpcarouselpro-theme5 .tpcarouselpro-theme5-icons-link{
+    display: inline-block;
+    width: 35px;
+    height: 32px;
+    line-height: 34px;
+    border-radius: 50%;
+    background: #dff3e4;
+    position: absolute;
+    top: 35%;
+    opacity: 0;
+    z-index: 2;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme5 .tpcarouselpro-theme5-icons-link{
+    left: 15%;
+}
+.tpcarouselpro-theme5:hover .tpcarouselpro-theme5-icons-link{
+    left: 40%;
+    opacity: 1;
+}
+.tpcarouselpro-theme5 .tpcarouselpro-theme5-icons a {
+    display: block;
+    font-size: 18px;
+    color: #ffff;
+	background: #000;
+}
+.tpcarouselpro-theme5 .tpcarouselpro-theme5-content{
+    width: 100%;
+	background: #ddd;
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    padding: 5px 5px;
+    z-index: 2;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme5:hover .tpcarouselpro-theme5-content{
+    bottom: 0;
+}
+.tpcarouselpro-theme5 .tpcarouselpro-theme5-title{
+    display: block;
+    text-transform: capitalize;
+}
+
+
+
+/* Post Slider Style 06   */
+
+.tpcarouselpro-theme6{
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+.tpcarouselpro-theme6 .tpcarouselpro-theme6-img{
+    position: relative;
+}
+.tpcarouselpro-theme6 .tpcarouselpro-theme6-img:before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme6:hover .tpcarouselpro-theme6-img:before{
+    opacity: 1;
+}
+.tpcarouselpro-theme6 .tpcarouselpro-theme6-icons{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height:100%;
+}
+.tpcarouselpro-theme6 .tpcarouselpro-theme6-icons a{
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    color: #333;
+    position: relative;
+    top:45%;
+    opacity:0;
+    font-size: 16px;
+    line-height: 40px;
+    margin-right: 5px;
+    display: inline-block;
+    transform: rotateZ(-360deg);
+    transition:all 0.3s ease 0s;
+}
+.tpcarouselpro-theme6:hover .tpcarouselpro-theme6-icons a{
+    transform: rotateZ(0deg);
+    opacity:1;
+}
+.tpcarouselpro-theme6-title{
+  background: #f1f1f1;
+  display: block;
+  font-size: 15px;
+  text-align: center;
+  color:#000;
+  line-height: 30px;
+  overflow: hidden;
+  padding: 5px;
+}
+
+
+
+
+/* Post Slider Style 07   */
+
+
+#tpcarouselpro-theme7{
+  background: #ddd;
+}
+#tpcarouselpro-theme7 .tpcarouselpro-theme7-post{
+  padding: 10px;
+}
+#tpcarouselpro-theme7 .tpcarouselpro-theme7-content {
+  padding: 0 10px 10px;
+}
+#tpcarouselpro-theme7 .tpcarouselpro-theme7-post .tpcarouselpro-theme7-date {
+  font-size: 13px;
+  font-style: italic;
+  text-align: left;
+}
+#tpcarouselpro-theme7 .tpcarouselpro-theme7-title{
+  margin-bottom: 10px; 
+  margin-top: 10px;
+}
+#tpcarouselpro-theme7 .tpcarouselpro-theme7-title h3 {
+  color: #000;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0px;
+  padding 0px;
+  text-align: left;
+}
+#tpcarouselpro-theme7 .content_area {
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+#tpcarouselpro-theme7 .excerpt_area a {
+  background: #000 none repeat scroll 0 0;
+  box-shadow: none;
+  color: #fff;
+  display: inline-block;
+  font-size: 10px;
+  margin: 0;
+  outline: medium none;
+  padding: 10px 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+
+/* Post Slider Style 08   */
+
+.tpcarouselpro-theme8 {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+.tpcarouselpro-theme8-info {
+  background: #000;
+  bottom: 0;
+  display: block;
+  line-height: 1.4em;
+  padding: 10px 15px;
+  position: absolute;
+  width: 100%;
+}
+.tpcarouselpro-theme8-thumb {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+
+
+/* Post Slider Style 09   */
+
+.tpcarouselpro-theme9{
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+.tpcarouselpro-theme9:after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ddd;
+    opacity: 0;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme9:hover:after{
+    opacity: 1;
+}
+.tpcarouselpro-theme9 img{
+    width: 100%;
+    height: auto;
+}
+.tpcarouselpro-theme9 .tpcarouselpro-theme9-icons-link{
+    display: inline-block;
+    width: 35px;
+    height: 32px;
+    line-height: 34px;
+    border-radius: 50%;
+    background: #dff3e4;
+    position: absolute;
+    top: 35%;
+    opacity: 0;
+    z-index: 2;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme9 .tpcarouselpro-theme9-icons-link{
+    left: 15%;
+}
+.tpcarouselpro-theme9:hover .tpcarouselpro-theme9-icons-link{
+    left: 40%;
+    opacity: 1;
+}
+.tpcarouselpro-theme9 .tpcarouselpro-theme9-icons a {
+    display: block;
+    font-size: 18px;
+    color: #ffff;
+	background: #000;
+}
+.tpcarouselpro-theme9 .tpcarouselpro-theme9-content{
+    width: 100%;
+	background: #ddd;
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    padding: 5px 5px;
+    z-index: 2;
+    transition: all 0.5s ease 0s;
+}
+.tpcarouselpro-theme9:hover .tpcarouselpro-theme9-content{
+    bottom: 0;
+}
+.tpcarouselpro-theme9 .tpcarouselpro-theme9-title{
+    display: block;
+    text-transform: capitalize;
+}
+
+
+
+
+/* Post Slider Style 10   */
+
+#tpcarouselpro-theme10{
+  background: #ddd;
+}
+#tpcarouselpro-theme10 .tpcarouselpro-theme10-post{
+  padding: 10px;
+}
+#tpcarouselpro-theme10 .tpcarouselpro-theme10-content {
+  padding: 0 10px 10px;
+}
+#tpcarouselpro-theme10 .tpcarouselpro-theme10-post .tpcarouselpro-theme10-date {
+  font-size: 13px;
+  font-style: italic;
+  text-align: left;
+}
+#tpcarouselpro-theme10 .tpcarouselpro-theme10-title{
+  margin-bottom: 10px; 
+  margin-top: 10px;
+}
+#tpcarouselpro-theme10 .tpcarouselpro-theme10-title h3 {
+  color: #000;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0px;
+  padding 0px;
+  text-align: left;
+}
+#tpcarouselpro-theme10 .content_area {
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+#tpcarouselpro-theme10 .excerpt_area a {
+  background: #000 none repeat scroll 0 0;
+  box-shadow: none;
+  color: #fff;
+  display: inline-block;
+  font-size: 10px;
+  margin: 0;
+  outline: medium none;
+  padding: 10px 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
